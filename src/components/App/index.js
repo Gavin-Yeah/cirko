@@ -14,6 +14,7 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import * as ROUTES from '../../constants/routes';
+import Comments from "../Comments";
 import { withFirebase } from '../Firebase';
 //the user data is stored in App props
 
@@ -33,6 +34,7 @@ const App = () => (
             <Route path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
+            <Route path={ROUTES.COMMENTS} component={Comments} />
         </div>
     </Router>
 );

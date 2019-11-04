@@ -2,38 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd55fcb9-e49b-4ca8-b8c2-62db6a150df6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/process.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Account/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Admin/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Comments/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/CreatePosts/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Firebase/context.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Firebase/firebase.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Firebase/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Item/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Landing/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Navigation/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PasswordChange/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/PasswordForget/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Session/context.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Session/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Session/withAuthentication.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Session/withAuthorization.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SignIn/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SignOut/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/SignUp/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Comments/Comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Item/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/process.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Comments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreatePosts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreatePosts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/firebase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Item/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Item/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/routes.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +24,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -58,6 +38,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -101,7 +82,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1572807616960</updated>
-      <workItem from="1572807618638" duration="18054000" />
+      <workItem from="1572807618638" duration="25640000" />
     </task>
     <servers />
   </component>
