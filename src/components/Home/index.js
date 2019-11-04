@@ -11,7 +11,7 @@ class HomePage extends React.Component {
             id: '1',
             userName: 'Nick',
             time: '10/01/2019',
-            comments: ['i like it', "i hate it"],
+            comments: [{id:1,userName:'Nick',time:'10:30 10/10/2019',content:"abc", likes:5}],
             content: "null",
             likes: 5,
             location: 'Irvine, CA',
