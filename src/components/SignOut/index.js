@@ -1,8 +1,10 @@
 import React from 'react';
 import { withFirebase } from '../Firebase';
+import {Button} from "antd-mobile";
+
 const SignOutButton = ({ firebase }) => (
-    <button type="button" onClick={firebase.doSignOut}>
+    <Button type="warning" onClick={firebase.doSignOut}>
         Sign Out
-    </button>
+    </Button>
 );
 export default withFirebase(SignOutButton);

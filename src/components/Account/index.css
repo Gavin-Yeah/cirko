@@ -1,0 +1,13 @@
+.userInfoContainer {
+     margin-bottom: 3vh;
+    height: 15vh;
+    background-color: white;
+    padding:1vh 3vh;
+    display: flex;
+
+ }
+.avatar{
+    width: 40%;
+
+
+}

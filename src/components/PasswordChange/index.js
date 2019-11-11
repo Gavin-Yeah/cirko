@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
+import {List,Button,InputItem}from 'antd-mobile'
 const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',
@@ -22,34 +23,37 @@ class PasswordChangeForm extends Component {
             });
         event.preventDefault();
     };
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    onChangePassword = event => {
+        this.setState({ passwordOne: event });
+    };
+    onChangeConfirm = event => {
+        this.setState({ passwordTwo: event });
     };
     render() {
         const { passwordOne, passwordTwo, error } = this.state;
         const isInvalid =
             passwordOne !== passwordTwo || passwordOne === '';
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
+            <List>
+                <InputItem
                     name="passwordOne"
                     value={passwordOne}
-                    onChange={this.onChange}
+                    onChange={this.onChangePassword}
                     type="password"
                     placeholder="New Password"
                 />
-                <input
+                <InputItem
                     name="passwordTwo"
                     value={passwordTwo}
-                    onChange={this.onChange}
+                    onChange={this.onChangeConfirm}
                     type="password"
                     placeholder="Confirm New Password"
                 />
-                <button disabled={isInvalid} type="submit">
+                <Button disabled={isInvalid} type="submit" onClick={this.onSubmit}>
                     Reset My Password
-                </button>
+                </Button>
                 {error && <p>{error.message}</p>}
-            </form>
+            </List>
         );
     }
 }

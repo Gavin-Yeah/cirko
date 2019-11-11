@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 import * as ROUTES from '../../constants/routes';
+import * as ROLES from '../../constants/roles';
 import { compose } from 'recompose';
-
+import {Button, InputItem}from 'antd-mobile'
 import { withFirebase } from '../Firebase';
 const SignUpPage = () => (
     <div>
@@ -18,6 +19,7 @@ const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',
     error: null,
+    isAdmin: false,
 };
 
 class SignUpFormBase extends Component {
@@ -27,9 +29,25 @@ class SignUpFormBase extends Component {
     }
 
     onSubmit = event => {
-        const { username, email, passwordOne } = this.state;
+        const { username, email, passwordOne, isAdmin } = this.state;
+        const roles = {};
+        if (isAdmin) {
+            roles[ROLES.ADMIN] = ROLES.ADMIN;
+        }
         this.props.firebase
             .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .then(authUser => {
+                // Create a user in your Firebase realtime database
+                return this.props.firebase
+                    .user(authUser.user.uid)
+                    .set({
+                            username,
+                            email,
+                            roles,
+                        },
+                        {merge: true},
+                    );
+            })
             .then(authUser => {
                 this.setState({ ...INITIAL_STATE });
                 this.props.history.push(ROUTES.HOME);
@@ -42,9 +60,20 @@ class SignUpFormBase extends Component {
 
 
     }
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    onChangeUsername = event => {
+        this.setState({ username: event});
     };
+    onChangeEmail = event => {
+        this.setState({ email: event });
+    };
+    onChangePasswordOne = event => {
+        this.setState({ passwordOne: event });
+    };
+    onChangePasswordTwo = event => {
+        this.setState({ passwordTwo: event });
+    };
+
+
     render() {
         const {
             username,
@@ -52,6 +81,7 @@ class SignUpFormBase extends Component {
             passwordOne,
             passwordTwo,
             error,
+            isAdmin,
         } = this.state;
 
 
@@ -62,36 +92,40 @@ class SignUpFormBase extends Component {
             username === '';
 
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
+            <form >
+                <InputItem
                     name="username"
                     value={username}
-                    onChange={this.onChange}
+                    onChange={this.onChangeUsername}
                     type="text"
                     placeholder="Full Name"
-                />
-                <input
+                ></InputItem>
+                <InputItem
                     name="email"
                     value={email}
-                    onChange={this.onChange}
+                    onChange={this.onChangeEmail}
                     type="text"
                     placeholder="Email Address"
-                />
-                <input
+                ></InputItem>
+                <InputItem
                     name="passwordOne"
                     value={passwordOne}
-                    onChange={this.onChange}
+                    onChange={this.onChangePasswordOne}
                     type="password"
                     placeholder="Password"
-                />
-                <input
+                ></InputItem>
+                <InputItem
                     name="passwordTwo"
                     value={passwordTwo}
-                    onChange={this.onChange}
+                    onChange={this.onChangePasswordTwo}
                     type="password"
                     placeholder="Confirm Password"
-                />
-                <button disabled={isInvalid} type="submit">Sign Up</button>
+
+                ></InputItem>
+
+
+
+                <Button disabled={isInvalid} type={"primary"} onClick={this.onSubmit}>Sign Up</Button>
                 {error && <p>{error.message}</p>}
             </form>
         );
@@ -99,9 +133,9 @@ class SignUpFormBase extends Component {
 }
 
 const SignUpLink = () => (
-    <p>
+    <Button>
         Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-    </p>
+    </Button>
 );
 const SignUpForm = compose(
     withRouter,

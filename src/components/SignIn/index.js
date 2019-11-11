@@ -6,11 +6,24 @@ import * as ROUTES from '../../constants/routes';
 
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
+import "./index.css"
+import { Flex, WhiteSpace, InputItem, Button , List} from 'antd-mobile';
+import * as firebaseui from 'firebaseui'
 const SignInPage = () => (
     <div>
-        <h1>SignIn</h1>
+      <div className={"icon"}>
+
+
+              <img className={"image"} src={require("../icons/cirko-trans.png")} alt=""/>
+              <h2 className={"appName"}>CIRKO</h2>
+
+
+      </div>
         <SignInForm />
-        <PasswordForgetLink />
+        <br/>
+        <SignInGoogle />
+        <br/>
+        {/*<PasswordForgetLink />*/}
         <SignUpLink />
     </div>
 );
@@ -24,6 +37,7 @@ class SignInFormBase extends Component {
         super(props);
         this.state = { ...INITIAL_STATE };
     }
+
     onSubmit = event => {
         const { email, password } = this.state;
         this.props.firebase
@@ -37,39 +51,112 @@ class SignInFormBase extends Component {
             });
         event.preventDefault();
     };
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    onPasswordChange = event => {
+         this.setState({ password: event});
+
+    };
+    onEmailChange = event => {
+        this.setState({ email: event });
+
     };
     render() {
         const { email, password, error } = this.state;
         const isInvalid = password === '' || email === '';
         return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <button disabled={isInvalid} type="submit">
+            <div >
+
+            <List>
+                <InputItem
+
+                        name="email"
+                        value={email}
+                        onChange={this.onEmailChange}
+                        type="text"
+                        placeholder="Email Address"
+
+                ></InputItem>
+
+                <WhiteSpace/>
+                <InputItem
+
+                        name="password"
+                        value={password}
+                        onChange={this.onPasswordChange}
+                        type="password"
+                        placeholder="Password"
+
+                ></InputItem>
+            </List>
+                <WhiteSpace/>
+
+                <WhiteSpace/>
+                <List>
+                <Button  type="warning" onClick={this.onSubmit}>
                     Sign In
-                </button>
+                </Button>
                 {error && <p>{error.message}</p>}
-            </form>
+                </List>
+            </div>
         );
     }
 }
+
+
+
+class SignInGoogleBase extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { error: null };
+    }
+    onSubmit = event => {
+        this.props.firebase
+            .doSignInWithGoogle()
+            .then(socialAuthUser => {
+                // Create a user in your Firebase Realtime Database too
+                return this.props.firebase
+                    .user(socialAuthUser.user.uid)
+                    .set({
+                        username: socialAuthUser.user.displayName,
+                        email: socialAuthUser.user.email,
+                        roles: {},
+                    },
+                        { merge: true });
+            })
+            .then(socialAuthUser => {
+                this.setState({ error: null });
+                this.props.history.push(ROUTES.HOME);
+            })
+            .catch(error => {
+                this.setState({ error });
+            });
+        event.preventDefault();
+    };
+    render() {
+        const { error } = this.state;
+        return (
+            <div  >
+                <Button  type={'submit'} onClick={this.onSubmit}  >
+                    <span><img className={"googleIcon"} src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt=""/> Sign In with Google</span>
+                   </Button>
+                {error && <p>{error.message}</p>}
+            </div>
+        );
+    }
+}
+
+
+
+
 const SignInForm = compose(
     withRouter,
     withFirebase,
 )(SignInFormBase);
+
+
+const SignInGoogle = compose(
+    withRouter,
+    withFirebase,
+)(SignInGoogleBase);
+
 export default SignInPage;
 export { SignInForm };
