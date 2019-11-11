@@ -1,60 +1,176 @@
-import React, {Component} from 'react';
-import Comment from "./Comment";
-import Item from '../Item'
-import {withAuthorization} from "../Session";
-class Comments extends Component {
-    state={
-        comments:[{id:1,userName:'Nick',time:'10:30 10/10/2019',content:"abc", likes:5}],
-        isWriteCommentClicked:false,
-        comment:""
-    }
-    commentRef = React.createRef();
-onCLickWriteCommentHandler = ()=>{
-        this.setState({isWriteCommentClicked:true})
-}
-onClickSubmitHandler = ()=>{
-    const {comment} = this.state;
-    const commentObj = {userName:'Jack',time:'10:31 10/10/2019',content: comment, likes:0}
-    let comments = [...this.state.comments]
-    comments.unshift(commentObj);
-    this.setState({comments, comment: ""})
+import {Button, Flex, Icon, ListView, NavBar, TabBar} from 'antd-mobile';
+import React from "react";
+import ReactDOM from "react-dom"
+import {NavLink} from "react-router-dom";
 
+const data = [
+    {
+
+        title: 'Meet hotel',
+        des: '不是所有的兼职汪都需要风吹日晒',
+        id:1,
+    },
+    {
+
+        title: 'McDonald\'s invites you',
+        des: '不是所有的兼职汪都需要风吹日晒',
+        id:2,
+    },
+    {
+
+        title: 'Eat the week',
+        des: '不是所有的兼职汪都需要风吹日晒',
+        id:3,
+    },
+];
+const NUM_SECTIONS = 5;
+const NUM_ROWS_PER_SECTION = 5;
+let pageIndex = 0;
+const NUM_ROWS = 20;
+const dataBlobs = {};
+let sectionIDs = [];
+let rowIDs = [];
+function genData(pIndex = 0) {
+    const dataBlob = {};
+    for (let i = 0; i < NUM_ROWS; i++) {
+        const ii = (pIndex * NUM_ROWS) + i;
+        dataBlob[`${ii}`] = `row - ${ii}`;
+    }
+    return dataBlob;
 }
-    onClickCancelHandler = ()=>{
-    this.setState({ isWriteCommentClicked:false})
+
+export  default class Comments extends React.Component {
+    constructor(props) {
+        super(props);
+        const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
+        const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
+
+        const dataSource = new ListView.DataSource({
+            getRowData,
+            getSectionHeaderData: getSectionData,
+            rowHasChanged: (row1, row2) => row1 !== row2,
+            sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
+        });
+
+        this.state = {
+            dataSource,
+            isLoading: true,
+            height: document.documentElement.clientHeight ,
+        };
     }
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-    };
+    componentDidMount() {
+        // you can scroll to the specified position
+        // setTimeout(() => this.lv.scrollTo(0, 120), 800);
+
+        // simulate initial Ajax
+        setTimeout(() => {
+            this.rData = genData();
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(this. rData),
+                isLoading: false,
+            });
+        }, 600);
+    }
+
+    onEndReached = (event) => {
+        // load new data
+        // hasMore: from backend data, indicates whether it is the last page, here is false
+        if (this.state.isLoading && !this.state.hasMore) {
+            return;
+        }
+        console.log('reach end', event);
+        this.setState({ isLoading: true });
+        setTimeout(() => {
+            this.rData = { ...this.rData, ...genData(++pageIndex) };
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(this.rData),
+                isLoading: false,
+            });
+        }, 1000);
+    }
+
+
+
+
     render() {
-        let {comments, isWriteCommentClicked,comment} = this.state;
-        return (
-            <div>
+        const separator = (sectionID, rowID) => (
+            <div
+                key={`${sectionID}-${rowID}`}
+                style={{
+                    backgroundColor: '#F5F5F9',
+                    height: 8,
+                    borderTop: '1px solid #ECECED',
+                    borderBottom: '1px solid #ECECED',
+                }}
+            />
+        );
+        let index = data.length - 1;
+        const row = (rowData, sectionID, rowID) => {
+            if (index < 0) {
+                index = data.length - 1;
+            }
+            const obj = data[index--];
+            return (
+                <div key={rowID} style={{ padding: '0 15px' }}>
+                    <NavBar
+                        style={{position:'fixed',width:"100%", top:0,zIndex:1}}
+                        mode="light"
+                        icon={<Icon type="left" />}
+                        onLeftClick={() => {this.props.history.goBack()}}
+                        rightContent={
+                            <div onClick={this.onClickAdd}> <img style={{width: '30px' ,marginRight:'16px'}}
+                                                                 src="https://image.flaticon.com/icons/png/128/148/148781.png" alt=""/>
+                            </div>
 
-            <div>
-                <h3 >reply：</h3>
-                <h2 style={{display:comments.length>0?'none':'block'}}>no comment</h2>
-                <div >
-                    {
-                        comments.map((item)=>{
-                            return (
-                                <Comment key={item.id} {...item}/>
-                            )})
-                    }
+                        }
+                    ><h3>comments</h3></NavBar>
+                    <div
+                        style={{
+                            lineHeight: '50px',
+                            color: '#888',
+                            fontSize: 18,
+                            borderBottom: '1px solid #F6F6F6',
+                        }}
+                    >{obj.title}</div>
+                    <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
 
+                        <div style={{ lineHeight: 1 }}>
+                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
+                            <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowID}</span>¥</div>
+                        </div>
+                    </div>
+                    <Flex>
+
+                        <Flex.Item><Button>Like</Button></Flex.Item>
+                    </Flex>
                 </div>
-            </div>
-                <div style={{display:isWriteCommentClicked?'block':'none'}}>
-                    <div>
-                        <button onClick={this.onClickCancelHandler}>back</button></div>
-                    <textarea name="comment" value={comment}id="comment" cols="30" rows="10" ref={this.commentRef} onChange={this.onChange}></textarea>
-                    <button onClick={this.onClickSubmitHandler}>submit</button></div>
-                <div><a href="#" onClick={this.onCLickWriteCommentHandler}>write a comment</a></div>
-            </div>
+            );
+        };
+        return (
+
+            <ListView
+                ref={el => this.lv = el}
+                dataSource={this.state.dataSource}
+
+                renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+                    {this.state.isLoading ? 'Loading...' : 'Loaded'}
+                </div>)}
+
+                renderRow={row}
+                renderSeparator={separator}
+
+                style={{
+                    height: this.state.height,
+                    overflow: 'auto',
+                }}
+                className="am-list"
+                pageSize={4}
+                onScroll={() => { console.log('scroll'); }}
+                scrollRenderAheadDistance={500}
+                onEndReached={this.onEndReached}
+                onEndReachedThreshold={10}
+            />
         );
     }
 }
-const condition = authUser => !!authUser;
-
-export default withAuthorization(condition)(Comments);

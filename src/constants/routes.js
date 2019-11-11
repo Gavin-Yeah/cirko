@@ -6,3 +6,8 @@ export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
 export const COMMENTS = '/comments';
+export const EDITAVATAR ='/home/edit-avatar';
+export const EDITNAME = '/home/edit-name';
+export const POSTPAGE = '/home/postpage';
+export const CREATEPOST = '/createpost'
+

@@ -2,13 +2,15 @@ import React from 'react';
 import {withAuthorization} from '../Session';
 import Item from "../Item";
 import * as ROUTES from "../../constants/routes";
-import CreatePost from '../CreatePosts'
+import CreatePost from '../CreatePost'
 import Navigation from "../Navigation";
 import PostPage from '../PostPage'
-import {TabBar, ListView, NavBar} from 'antd-mobile';
+import {TabBar, ListView, NavBar,Icon} from 'antd-mobile';
 import './index.css'
 import AccountPage from "../Account";
+import {Route, Link} from 'react-router-dom'
 import icon from '../icons/cirko-trans.png'
+import EditAvatar from "../EditAvatar";
 class HomePage extends React.Component {
 
     state = {
@@ -93,7 +95,9 @@ class HomePage extends React.Component {
             </div>
         );
     }
-
+    onClickAdd=()=>{
+        this.props.history.push(ROUTES.CREATEPOST);
+    }
     render() {
         return (
 
@@ -128,10 +132,22 @@ class HomePage extends React.Component {
                             this.setState({
                                 selectedTab: 'blueTab',
                             });
+                            this.props.history.push('/home/postpage')
                         }}
                         data-seed="logId"
                     >
-                        <PostPage />
+                        <NavBar
+                            style={{position:'fixed',width:"100%", top:0,zIndex:1}}
+                            mode="light"
+
+                            rightContent={
+                               <div onClick={this.onClickAdd}> <img style={{width: '30px'}}
+                                     src="https://image.flaticon.com/icons/png/128/148/148781.png" alt=""/>
+                               </div>
+
+                            }
+                                ><h1>CIRKO</h1></NavBar>
+                      <PostPage/>
                     </TabBar.Item>
 
                     <TabBar.Item
@@ -161,7 +177,7 @@ class HomePage extends React.Component {
                     >
                         {this.renderContent('Friend')}
                     </TabBar.Item>
-                    <TabBar.Item
+                     <TabBar.Item
                         icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
                         selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
                         title="My"
@@ -171,10 +187,14 @@ class HomePage extends React.Component {
                             this.setState({
                                 selectedTab: 'yellowTab',
                             });
+                            this.props.history.push("/home/account")
+
                         }}
                     >
-                        <AccountPage/>
-                    </TabBar.Item>
+                       <Route path={"/home/account"} component={AccountPage}/>
+                         <Route path={ROUTES.EDITAVATAR} component={EditAvatar}/>
+                     </TabBar.Item>
+
                 </TabBar>
             </div>
         );

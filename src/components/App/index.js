@@ -1,8 +1,9 @@
 import React from 'react';
 
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
+    Redirect
 } from 'react-router-dom';
 
 
@@ -17,8 +18,10 @@ import * as ROUTES from '../../constants/routes';
 import Comments from "../Comments";
 import { withFirebase } from '../Firebase';
 //the user data is stored in App props
-
+import EditAvatar from '../EditAvatar'
 import { withAuthentication } from '../Session';
+import {EDITAVATAR} from "../../constants/routes";
+import CreatePost from '../CreatePost'
 const App = () => (
     <Router>
         <div>
@@ -35,6 +38,8 @@ const App = () => (
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
             <Route path={ROUTES.COMMENTS} component={Comments} />
+            <Route path={ROUTES.CREATEPOST} component={CreatePost} />
+            <Redirect to={ROUTES.HOME}/>
         </div>
     </Router>
 );

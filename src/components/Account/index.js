@@ -2,35 +2,47 @@
 import PasswordChangeForm from '../PasswordChange';
 import { AuthUserContext, withAuthorization } from '../Session';//import authorization
 import {Flex, List, WhiteSpace, NavBar, Icon, Button} from 'antd-mobile'
-
+import {NavLink} from "react-router-dom";
 import React, {Component} from 'react';
 import './index.css'
 import SignOutButton from "../SignOut";
+import * as ROUTES from "../../constants/routes";
+import EditAvatar from "../EditAvatar";
 class AccountPage extends Component {
     state = {
         avatarUrl:"https://image.flaticon.com/icons/png/128/149/149071.png",
         userName:"Jack",
 
     }
+    onClickAvatar=()=>{
+        this.props.history.push(ROUTES.EDITAVATAR);
+    }
+    onClickAdd=()=>{
+    this.props.history.push(ROUTES.CREATEPOST);
+}
+
     render() {
         const {userName, avatarUrl} = this.state;
         return (
             <AuthUserContext.Consumer>
                 {authUser => (
                     <div >
+
+
                         <NavBar
                             mode="light"
 
 
                             rightContent={
-                                <img style={{width:'30px'}} src="https://image.flaticon.com/icons/png/128/148/148781.png" alt=""/>
-
+                              <div onClick={this.onClickAdd}> <img style={{width:'30px'}} src="https://image.flaticon.com/icons/png/128/148/148781.png" alt=""/>
+                              </div>
 
                             }
                         />
                         <Flex className={"userInfoContainer"}>
-                            <Flex.Item><img src={avatarUrl} alt="avatar"/></Flex.Item>
-                            <Flex.Item style={{flex:3}}><h1>{userName}</h1></Flex.Item>
+                            <Flex.Item onClick={this.onClickAvatar}><img src={avatarUrl} alt="avatar"/></Flex.Item>
+                            <Flex.Item style={{flex:3, paddingLeft:"10px"}}><h1>{userName}</h1></Flex.Item>
+                            <Icon type="ellipsis" />
                         </Flex>
                         <List >
                             <List.Item
