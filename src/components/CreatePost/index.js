@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
-import {withAuthorization} from "../Session";
+import {withAuthentication} from "../Session";
 import {NavBar, Button, Icon, List, TextareaItem, Flex,ImagePicker, WingBlank} from 'antd-mobile'
 import add from "../icons/add.png";
-const data = [{
-    url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-    id: '2121',
-}, {
-    url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
-    id: '2122',
-}];
+import { get_user_profile, savePostToDB } from "../Firebase/upload";
+
 class CreatePost extends Component {
     state = {
         content:'',
-        files:data,
+        files:[],
+       location:'',
 
 
     }
@@ -33,7 +29,20 @@ class CreatePost extends Component {
         this.setState({ content: event });
     };
     onConfirm = ()=>{
-        this.props.history.goBack()
+
+        const firebase = this.props.firebase;
+        const uid = firebase.auth.currentUser.uid;
+        const username = firebase.auth.currentUser.displayName;
+        const callback = ({posts_num})=>{
+            savePostToDB(firebase,uid,username,posts_num,this.state.content,this.state.location,this.state.files,()=>{
+                this.props.history.goBack();
+            })
+        }
+         get_user_profile(firebase,uid,callback)
+
+
+
+        //this.props.history.goBack()
     }
 
     onChangePic = (files, type, index) => {
@@ -75,9 +84,12 @@ class CreatePost extends Component {
 
                     }
                 ><h1 style={{color:"white",}}>Post</h1>
+
                 </NavBar>
 
+
                 <List>
+                    <div style={{height:'70px' ,background:'white'}}></div>
                     <TextareaItem
 
                         placeholder={"What's happening?"}
@@ -112,4 +124,4 @@ class CreatePost extends Component {
         );
     }
 }
-export default CreatePost;
+export default withAuthentication(CreatePost);

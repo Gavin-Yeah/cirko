@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 
 import * as ROUTES from "../../../constants/routes";
 import add from "../../icons/add.png";
+import { get_all_post } from "../../Firebase/getPosts";
 const data = [
     {
         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -41,7 +42,7 @@ const data = [
 const NUM_SECTIONS = 5;
 const NUM_ROWS_PER_SECTION = 5;
 let pageIndex = 0;
-const NUM_ROWS = 20;
+const NUM_ROWS = 10;
 const dataBlobs = {};
 let sectionIDs = [];
 let rowIDs = [];
@@ -75,6 +76,8 @@ class PostPage extends React.Component {
     }
 
     componentDidMount() {
+
+
         // you can scroll to the specified position
         // setTimeout(() => this.lv.scrollTo(0, 120), 800);
 
@@ -82,7 +85,7 @@ class PostPage extends React.Component {
         setTimeout(() => {
             this.rData = genData();
             this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(this. rData),
+                dataSource: this.state.dataSource.cloneWithRows(this.rData),
                 isLoading: false,
             });
         }, 600);
@@ -158,6 +161,7 @@ onClickComment =(id)=>{
                         <Flex>
                             <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
                         </Flex>
+
                     </div>
 
                    <Flex>

@@ -29,13 +29,10 @@ function updateImage(firebase, user_ID, Image, callback) {
 //if no picture selected before? should we just create a no pic?
 function updateUserName(firebase, user_ID, user_name/*...*/, callback) {
     var db = firebase.db;
+    console.log( db.collection("users").doc(user_ID));
     db.collection("users").doc(user_ID).set({
-        userID: user_ID,
+
         username: user_name,
-        following: [],
-        followers: [],
-        posts: [],
-        posts_num: 0
         /*...*/
     })
         .then(function (docRef) {
@@ -69,9 +66,9 @@ function follow(firebase, follower_id, followed_id) {
 //when user share a post and then you will need to save it to the database
 // passing a user obj? and a post object will be a better option.
 // post_id = user_id + "_post_" + posts_num.toString();!!! important
-function savePostToDB(firebase, user_id, posts_num, content, location, pictures, callback) {
+function savePostToDB(firebase, user_id, username, posts_num, content, location, pictures, callback) {
     //get the database reference
-    var db = firebase.firestore();
+    var db = firebase.db;
     //generate post id
     var post_id = user_id + "_post_" + posts_num.toString();
     posts_num = posts_num + 1;
@@ -82,6 +79,7 @@ function savePostToDB(firebase, user_id, posts_num, content, location, pictures,
     //store post into post db
     db.collection("posts").doc(post_id).set({
         userID: user_id,
+        username:username,
         content: content,
         location: location,
         pictures_url: [],
@@ -95,7 +93,7 @@ function savePostToDB(firebase, user_id, posts_num, content, location, pictures,
 
     //update user data base
     db.collection("users").doc(user_id).update({
-        posts: firebase.firestore.FieldValue.arrayUnion(post_id),
+        posts: firebase.fieldValue.arrayUnion(post_id),
         posts_num: posts_num
     }).then(
         callback())
@@ -105,16 +103,16 @@ function savePostToDB(firebase, user_id, posts_num, content, location, pictures,
 //when user select a picture as a (head-pic)? save it to the storage
 function save_multiple_image(firebase, post_id, Images) {
     //get the storage reference
-    var storage = firebase.storage();
-    var db = firebase.firestore();
+    var storage = firebase.storage;
+    var db = firebase.db;
     for (var i = 0; i < Images.length; i++) {
         var storageRef = storage.ref('images/' + post_id + '_' + i.toString() + '.jpg');
         //store image to storage
-        storageRef.put(Images[i]).then(function (snapshot) {
+        storageRef.put(Images[i].file).then(function (snapshot) {
             snapshot.ref.getDownloadURL().then(function (url) {
                 //update the url in DB
                 db.collection("posts").doc(post_id).update({
-                    pictures_url: firebase.firestore.FieldValue.arrayUnion(url)
+                    pictures_url: firebase.fieldValue.arrayUnion(url)
                 })
             })
                 .catch(function (error) {
@@ -145,5 +143,22 @@ function likes(firebase, like_user_id, post_id) {
     db.collection("posts").doc(post_id).update({likes: firebase.firestore.FieldValue.arrayUnion(like_user_id)});
 }
 
+function get_user_profile(firebase,user_id, callback) {
+    //get db reference
+    var db = firebase.db;
+    var docRef = db.collection("users").doc(user_id);
 
-export { updateImage, updateUserName, comments, follow, savePostToDB }
+    docRef.get().then(function(doc) {
+        if (doc.exists) {
+
+            callback(doc.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+
+}
+export { updateImage, updateUserName, comments, follow, savePostToDB,get_user_profile}

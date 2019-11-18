@@ -1,5 +1,5 @@
 /* eslint no-dupe-keys: 0 */
-import {ListView, NavBar, Button, Flex, Icon, Toast} from 'antd-mobile';
+import { ListView, NavBar, Button, Flex, Icon, Toast, WingBlank, Carousel, Grid, ImagePicker } from 'antd-mobile';
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Link} from 'react-router-dom'
@@ -7,21 +7,56 @@ import {Link} from 'react-router-dom'
 import * as ROUTES from "../../../../constants/routes";
 
 import add from '../../../icons/add.png'
-const data = [
+import { get_all_post } from "../../../Firebase/getPosts";
+import withAuthentication from "../../../Session/withAuthentication";
+let data = [
     {
-        img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-        title: 'Meet hotel',
+        img: [{
+            url: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
+            id: 11,
+        }, {
+            url: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
+            id: 12
+        },
+            {
+                url: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
+                id: 15
+            }
+        ],
+            title: 'Meet hotel',
         des: '不是所有的兼职汪都需要风吹日晒',
         id:1,
     },
     {
-        img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
+        img: [{
+            url: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
+            id: 11,
+        }, {
+            url: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
+            id: 12
+        },
+            {
+                url: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
+                id: 15
+            }
+        ],
         title: 'McDonald\'s invites you',
         des: '不是所有的兼职汪都需要风吹日晒',
         id:2,
     },
     {
-        img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
+        img: [{
+            url: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
+            id: 11,
+        }, {
+            url: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
+            id: 12
+        },
+            {
+                url: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
+                id: 15
+            }
+        ],
         title: 'Eat the week',
         des: '不是所有的兼职汪都需要风吹日晒',
         id:3,
@@ -60,12 +95,20 @@ class MyPosts extends React.Component {
             dataSource,
             isLoading: true,
             height: document.documentElement.clientHeight ,
+            data: ['1', '2', '3'],
+            imgHeight: 176,
         };
     }
 
     componentDidMount() {
+        data=[];
         // you can scroll to the specified position
         // setTimeout(() => this.lv.scrollTo(0, 120), 800);
+        get_all_post(this.props.firebase,this.props.firebase.auth.currentUser.uid,(i)=>{
+            data.push(i);
+            console.log(i);
+        })
+        //console.log(this.props.firebase.db.collection("users").doc(this.props.firebase.auth.currentUser.uid))
 
         // simulate initial Ajax
         setTimeout(() => {
@@ -135,16 +178,30 @@ class MyPosts extends React.Component {
                     >{obj.location}</div>
                     <div>
                         <Flex style={{  padding: '15px 0' }}>
-                            <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
+                            <img style={{ height: '64px', marginRight: '15px' }} src={"https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png"} alt="" />
                             <div style={{ lineHeight: 1 }}>
 
-                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.title}</span></div>
+                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.username}</span></div>
                                 <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
                             </div>
                         </Flex>
                         <Flex>
-                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
+                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.content}</div>
                         </Flex>
+                        <div>
+                            <ImagePicker
+                                files={obj.pictures_url.map((item)=>{
+                                    return {url:item}
+                                })}
+                                onChange={this.onChange}
+                                onImageClick={(index, fs) => console.log(index, fs)}
+                                selectable={false}
+                                disableDelete={true}
+                                length={3}
+
+                            />
+
+                        </div>
                     </div>
 
                     <Flex>
@@ -202,5 +259,5 @@ class MyPosts extends React.Component {
     }
 }
 
-export default MyPosts;
+export default withAuthentication(MyPosts);
 

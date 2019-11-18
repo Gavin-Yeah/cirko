@@ -42,6 +42,10 @@ class SignUpFormBase extends Component {
                 return this.props.firebase
                     .user(authUser.user.uid)
                     .set({
+                            following: [],
+                            followers: [],
+                            posts: [],
+                            posts_num: 0,
                             userId:authUser.user.uid,
                             username,
                             email,
