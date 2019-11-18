@@ -1,5 +1,5 @@
 /* eslint no-dupe-keys: 0 */
-import { ListView, NavBar, Button, Flex, Toast } from 'antd-mobile';
+import { ListView, NavBar, Button, Flex, Toast, Slider } from 'antd-mobile';
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Link} from 'react-router-dom'
@@ -72,6 +72,7 @@ class PostPage extends React.Component {
             dataSource,
             isLoading: true,
             height: document.documentElement.clientHeight ,
+            distance:200
         };
     }
 
@@ -112,7 +113,12 @@ onClickComment =(id)=>{
 
     this.props.history.push(`/home/comments/${id}`)
 }
-
+slider =(e)=>{
+        console.log(e)
+      this.setState({
+          distance:e
+      })
+}
     render() {
         if(this.state.isLoading){
             Toast.loading('Loading...', 0.5, () => {
@@ -174,7 +180,7 @@ onClickComment =(id)=>{
         return (
             <div >
                 <NavBar
-                    style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
+                    style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:2}}
                     mode="light"
 
                     rightContent={
@@ -185,6 +191,26 @@ onClickComment =(id)=>{
                     }
                 ><h1 style={{color:"white",}}>CIRKO</h1>
                 </NavBar>
+                <Flex   style={{ background: "white",height:"70px",position:'fixed',width:"100%", top:"30px",zIndex:1}}>
+                    <Flex.Item style={{flex:'10'}}> <Slider
+                        style={{marginLeft:"20px",marginTop:'33px'}}
+                    defaultValue={200}
+                    min={0}
+                    max={10000}
+                    step={100}
+                    value={this.state.distance}
+                    onChange={(e)=>this.slider(e)}
+
+                />
+
+                </Flex.Item>
+                    <Flex.Item style={{flex:'0.7', marginLeft:'15px',marginTop:'30px'} }>
+                        {this.state.distance}
+                    </Flex.Item>
+                    <Flex.Item style={{flex:'1.5',marginTop:'30px'} }>
+                        <Button size='small'>Confirm</Button>
+                    </Flex.Item>
+                </Flex>
             <ListView
                 ref={el => this.lv = el}
                 dataSource={this.state.dataSource}

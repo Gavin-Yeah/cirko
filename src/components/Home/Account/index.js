@@ -1,7 +1,7 @@
 
 import PasswordChangeForm from './PasswordChange';
 import { AuthUserContext, withAuthorization } from '../../Session';//import authorization
-import {Flex, List, WhiteSpace, NavBar, Icon, Button} from 'antd-mobile'
+import { Flex, List, WhiteSpace, NavBar, Icon, Button, Slider } from 'antd-mobile'
 import {NavLink} from "react-router-dom";
 import React, {Component} from 'react';
 import './index.css'
@@ -64,6 +64,7 @@ class AccountPage extends Component {
                             <Flex.Item onClick={()=>{return  this.props.history.push(ROUTES.EDITNAME)}} style={{flex:3, paddingLeft:"10px"}}><h1>{this.state.userName}</h1></Flex.Item>
 
                         </Flex>
+
                         <List >
                             <List.Item
                                 thumb='https://image.flaticon.com/icons/png/128/148/148836.png'
