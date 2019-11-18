@@ -4,13 +4,24 @@ import Item from "../Item";
 import * as ROUTES from "../../constants/routes";
 import CreatePost from '../CreatePost'
 import Navigation from "../Navigation";
-import PostPage from '../PostPage'
+import PostPage from './PostPage'
 import {TabBar, ListView, NavBar,Icon} from 'antd-mobile';
 import './index.css'
-import AccountPage from "../Account";
+import AccountPage from "./Account";
 import {Route, Link} from 'react-router-dom'
 import icon from '../icons/cirko-trans.png'
-import EditAvatar from "../EditAvatar";
+import add from '../icons/add.png'
+import EditAvatar from "./Account/EditAvatar";
+import {MYPOSTS} from "../../constants/routes";
+import MyPosts from './Account/MyPosts';
+import FavPosts from "./Account/FavPosts";
+import EditName from "./Account/EditName";
+import { compose } from "recompose";
+import { withFirebase } from "../Firebase";
+import withAuthentication from "../Session/withAuthentication";
+import Following from "./Following";
+import Comments from "../Comments";
+import AddComment from "../Comments/AddComment";
 class HomePage extends React.Component {
 
     state = {
@@ -62,7 +73,7 @@ class HomePage extends React.Component {
     //     return (
     //         <div>
     //             <h1>Home Page</h1>
-    //             <button onClick={this.onAddClickHandler}>add</button>
+    //             <button onClick={this.onAddClickHandler}>add.png</button>
     //             <p>The Home Page is accessible by every signed in user.</p>
     //             <div>
     //                 {posts.map((item) => {
@@ -78,9 +89,10 @@ class HomePage extends React.Component {
     //     )
     // }
 
+
     renderContent(pageText) {
         return (
-            <div style={{ backgroundColor: 'white', height: '100%', textAlign: 'center' }}>
+            <div style={{ backgroundColor: '#ecfcee', height: '100%', textAlign: 'center' }}>
                 <div style={{ paddingTop: 60 }}>Clicked “{pageText}” tab， show “{pageText}” information</div>
                 <a style={{ display: 'block', marginTop: 40, marginBottom: 20, color: '#108ee9' }}
                    onClick={(e) => {
@@ -95,18 +107,21 @@ class HomePage extends React.Component {
             </div>
         );
     }
-    onClickAdd=()=>{
-        this.props.history.push(ROUTES.CREATEPOST);
-    }
+
     render() {
+
         return (
 
             <div style={{ position: 'fixed', height: '100%', width: '100%', top: 0 }}>
+                <Route path={ROUTES.CREATEPOST} component={CreatePost} />
+                <Route path={ROUTES.COMMENTS} component={Comments} />
+                <Route path={ROUTES.ADDCOMMENT} component={AddComment} />
+
 
                 <TabBar
-                    unselectedTintColor="#949494"
-                    tintColor="#33A3F4"
-                    barTintColor="white"
+                    unselectedTintColor="#a6daba"
+                    tintColor="#5396a5"
+                    barTintColor="#white"
                     tabBarPosition="bottom"
                     hidden={this.state.hidden}
                     prerenderingSiblingsNumber={0}
@@ -132,22 +147,12 @@ class HomePage extends React.Component {
                             this.setState({
                                 selectedTab: 'blueTab',
                             });
-                            this.props.history.push('/home/postpage')
+                            this.props.history.push(ROUTES.POSTPAGE)
                         }}
                         data-seed="logId"
                     >
-                        <NavBar
-                            style={{position:'fixed',width:"100%", top:0,zIndex:1}}
-                            mode="light"
 
-                            rightContent={
-                               <div onClick={this.onClickAdd}> <img style={{width: '30px'}}
-                                     src="https://image.flaticon.com/icons/png/128/148/148781.png" alt=""/>
-                               </div>
-
-                            }
-                                ><h1>CIRKO</h1></NavBar>
-                      <PostPage/>
+                      <Route path={ROUTES.POSTPAGE} component={PostPage}/>
                     </TabBar.Item>
 
                     <TabBar.Item
@@ -165,21 +170,22 @@ class HomePage extends React.Component {
                                 background: 'url(https://image.flaticon.com/icons/png/128/148/148800.png) center center /  21px 21px no-repeat' }}
                             />
                         }
-                        title="Friend"
-                        key="Friend"
+                        title="Following"
+                        key="Following"
                         dot
                         selected={this.state.selectedTab === 'greenTab'}
                         onPress={() => {
                             this.setState({
                                 selectedTab: 'greenTab',
                             });
+                            this.props.history.push(ROUTES.FOLLOWING)
                         }}
                     >
-                        {this.renderContent('Friend')}
+                        <Route path={ROUTES.FOLLOWING} component={Following}/>
                     </TabBar.Item>
                      <TabBar.Item
-                        icon={{ uri: 'https://zos.alipayobjects.com/rmsportal/asJMfBrNqpMMlVpeInPQ.svg' }}
-                        selectedIcon={{ uri: 'https://zos.alipayobjects.com/rmsportal/gjpzzcrPMkhfEqgbYvmN.svg' }}
+                        icon={{ uri: 'https://image.flaticon.com/icons/png/128/124/124576.png' }}
+                        selectedIcon={{ uri: 'https://image.flaticon.com/icons/png/128/124/124576.png' }}
                         title="My"
                         key="my"
                         selected={this.state.selectedTab === 'yellowTab'}
@@ -187,12 +193,15 @@ class HomePage extends React.Component {
                             this.setState({
                                 selectedTab: 'yellowTab',
                             });
-                            this.props.history.push("/home/account")
+                            this.props.history.push(ROUTES.ACCOUNT)
 
                         }}
                     >
-                       <Route path={"/home/account"} component={AccountPage}/>
+                       <Route path={ROUTES.ACCOUNT} component={AccountPage}/>
                          <Route path={ROUTES.EDITAVATAR} component={EditAvatar}/>
+                         <Route path={ROUTES.EDITNAME} component={EditName}/>
+                         <Route path={ROUTES.MYPOSTS} component={MyPosts}/>
+                         <Route path={ROUTES.FAVPOSTS} component={FavPosts}/>
                      </TabBar.Item>
 
                 </TabBar>
@@ -203,4 +212,9 @@ class HomePage extends React.Component {
 }
 
 const condition = authUser => !!authUser;
-export default withAuthorization(condition)(HomePage);
+HomePage = compose(
+
+    withAuthorization(condition),
+
+)(HomePage);
+export default HomePage;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withFirebase } from '../Firebase';
+import { withFirebase } from '../../../Firebase';
 import {Button} from "antd-mobile";
 
 const SignOutButton = ({ firebase }) => (

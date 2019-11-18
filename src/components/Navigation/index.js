@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
-import SignOutButton from '../SignOut';
+import SignOutButton from '../Home/Account/SignOut';
 import { AuthUserContext } from '../Session';
 
 const Navigation = () => (

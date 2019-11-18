@@ -2,18 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd55fcb9-e49b-4ca8-b8c2-62db6a150df6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Comments/index2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/EditAvatar/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/EditName/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Comments/AddComment/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/EditAvatar/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/EditName/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/FavPosts/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/MyPosts/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Following/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/icons/add.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/icons/cirko.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Account/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-overrides.js" beforeDir="false" afterPath="$PROJECT_DIR$/config-overrides.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Account/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Comments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreatePosts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreatePost/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreatePost/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreatePost/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EditAvatar/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EditName/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/firebase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Firebase/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/upload.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PostPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostPage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navigation/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PasswordChange/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/PasswordChange/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PostPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/PostPage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignOut/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/SignOut/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignUp/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/constants/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/routes.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,7 +54,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/PostPage" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Firebase" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -50,15 +64,18 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/components" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/Firebase" />
+      <recent name="$PROJECT_DIR$/src/components/MyPosts" />
+      <recent name="$PROJECT_DIR$/src/components/FavPosts" />
+      <recent name="$PROJECT_DIR$/src/components/icons" />
       <recent name="$PROJECT_DIR$/src/components/PostPage" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/Home/Account" />
       <recent name="$PROJECT_DIR$/src/components/Home" />
-      <recent name="$PROJECT_DIR$/src/PostPage" />
-      <recent name="$PROJECT_DIR$/src/icons" />
-      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/src/components/Account" />
+      <recent name="$PROJECT_DIR$/src/components" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -101,7 +118,11 @@
       <workItem from="1572807618638" duration="26004000" />
       <workItem from="1573161016112" duration="577000" />
       <workItem from="1573203902772" duration="131000" />
-      <workItem from="1573340145331" duration="51730000" />
+      <workItem from="1573340145331" duration="68286000" />
+      <workItem from="1573689810659" duration="38000" />
+      <workItem from="1573749878527" duration="11000" />
+      <workItem from="1573954522115" duration="473000" />
+      <workItem from="1574026630698" duration="23749000" />
     </task>
     <servers />
   </component>

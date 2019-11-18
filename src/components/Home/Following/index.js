@@ -1,31 +1,41 @@
-import { Button, Flex, Icon, ListView, NavBar, TabBar } from 'antd-mobile';
-import React from "react";
-import ReactDOM from "react-dom"
-import { NavLink } from "react-router-dom";
-import * as ROUTES from '../../constants/routes'
-import add from "../icons/add.png";
+/* eslint no-dupe-keys: 0 */
+import { ListView, NavBar,Button,Flex } from 'antd-mobile';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Link} from 'react-router-dom'
 
+import * as ROUTES from "../../../constants/routes";
+import add from "../../icons/add.png";
 const data = [
     {
-
+        img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
         title: 'Meet hotel',
         des: '不是所有的兼职汪都需要风吹日晒',
-        time: '02/29/2010',
-        id: 1,
+        time: '11/12/2019',
+        likes:5,
+        id:1,
+        comments:[],
+        location:''
     },
     {
-
+        img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
         title: 'McDonald\'s invites you',
         des: '不是所有的兼职汪都需要风吹日晒',
-        time: '02/29/2010',
-        id: 2,
+        time: '11/12/2019',
+        likes:5,
+        id:2,
+        comments:[],
+        location:'New Zealand'
     },
     {
-
+        img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
         title: 'Eat the week',
         des: '不是所有的兼职汪都需要风吹日晒',
-        time: '02/29/2010',
-        id: 3,
+        time: '11/12/2019',
+        likes:5,
+        id:3,
+        comments:[],
+        location:''
     },
 ];
 const NUM_SECTIONS = 5;
@@ -35,7 +45,6 @@ const NUM_ROWS = 20;
 const dataBlobs = {};
 let sectionIDs = [];
 let rowIDs = [];
-
 function genData(pIndex = 0) {
     const dataBlob = {};
     for (let i = 0; i < NUM_ROWS; i++) {
@@ -45,10 +54,9 @@ function genData(pIndex = 0) {
     return dataBlob;
 }
 
-export default class Comments extends React.Component {
+class Following extends React.Component {
     constructor(props) {
         super(props);
-
         const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
         const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
 
@@ -62,7 +70,7 @@ export default class Comments extends React.Component {
         this.state = {
             dataSource,
             isLoading: true,
-            height: document.documentElement.clientHeight,
+            height: document.documentElement.clientHeight ,
         };
     }
 
@@ -74,7 +82,7 @@ export default class Comments extends React.Component {
         setTimeout(() => {
             this.rData = genData();
             this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(this.rData),
+                dataSource: this.state.dataSource.cloneWithRows(this. rData),
                 isLoading: false,
             });
         }, 600);
@@ -87,9 +95,9 @@ export default class Comments extends React.Component {
             return;
         }
         console.log('reach end', event);
-        this.setState({isLoading: true});
+        this.setState({ isLoading: true });
         setTimeout(() => {
-            this.rData = {...this.rData, ...genData(++pageIndex)};
+            this.rData = { ...this.rData, ...genData(++pageIndex) };
             this.setState({
                 dataSource: this.state.dataSource.cloneWithRows(this.rData),
                 isLoading: false,
@@ -97,10 +105,9 @@ export default class Comments extends React.Component {
         }, 1000);
     }
 
+    onClickComment =(id)=>{
 
-    onClickAdd = () => {
-        //console.log(this.props.match.params.id)
-        this.props.history.push(`/home/addcomment/${this.props.match.params.id}`);
+        this.props.history.push(`/home/comments/${id}`)
     }
 
     render() {
@@ -122,59 +129,58 @@ export default class Comments extends React.Component {
             }
             const obj = data[index--];
             return (
-                <div key={rowID} style={{padding: '0 15px'}}>
+
+
+                <div key={rowID} style={{ padding: '0 15px' }}>
                     {rowID==0?  <div style={{height:'70px' ,background:'white'}}></div>:<div/> /*show the 1st post completely*/}
-
-
+                    <div
+                        style={{
+                            lineHeight: '40px',
+                            color: '#888',
+                            fontSize: 15,
+                            borderBottom: '1px solid #F6F6F6',
+                        }}
+                    >{obj.location}</div>
                     <div>
-                        <Flex style={{padding: '15px 0'}}>
-                            <img style={{height: '64px', marginRight: '15px'}} src={obj.img} alt=""/>
-                            <div style={{lineHeight: 1}}>
+                        <Flex style={{  padding: '15px 0' }}>
+                            <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
+                            <div style={{ lineHeight: 1 }}>
 
-                                <div><span
-                                    style={{fontSize: '20px', color: '#4e77a1', fontWeight: 'bold'}}>{obj.title}</span>
-                                </div>
-                                <div style={{
-                                    color: '#5396a5',
-                                    fontSize: '18px',
-                                    marginBottom: '8px',
-                                    marginTop: '5px'
-                                }}>{obj.time}</div>
+                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.title}</span></div>
+                                <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
                             </div>
                         </Flex>
                         <Flex>
-                            <div style={{marginBottom: '8px', fontWeight: 'bold'}}>{obj.des}</div>
+                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
                         </Flex>
                     </div>
-                    {/*<Flex>*/}
 
-                    {/*    <Flex.Item><Button>Like</Button></Flex.Item>*/}
-                    {/*</Flex>*/}
+                    <Flex>
+                        <Flex.Item><Button size='small' style={{background:'#5396a5' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.id)}>Comment</Button></Flex.Item>
+                        <Flex.Item><Button size='small' style={{background:'#5396a5',color:"#ecfcee",fontWeight: 'bold'}}>Likes ({obj.likes})</Button></Flex.Item>
+                    </Flex>
                 </div>
             );
         };
         return (
-            <div>
+            <div >
                 <NavBar
                     style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
                     mode="light"
-                    leftContent={
-                        <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-20px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
-                    </div>
-                        }
-
 
                     rightContent={
-                        <div onClick={this.onClickAdd}  style={{width: '40px',marginTop:"-20px",}}><img src={add} style={{width:"50px"}} alt="add"/>
+                        <div onClick={()=>this.props.history.push(ROUTES.CREATEPOST)} style={{width: '40px',marginTop:"-20px",}}>
+                            <img src={add} style={{width:"50px"}} alt="add"/>
                         </div>
 
                     }
-                ><h1 style={{color:"white",}}>comments</h1></NavBar>
+                ><h1 style={{color:"white",}}>CIRKO</h1>
+                </NavBar>
                 <ListView
                     ref={el => this.lv = el}
                     dataSource={this.state.dataSource}
 
-                    renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
+                    renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
                         {this.state.isLoading ? 'Loading...' : 'Loaded'}
                     </div>)}
 
@@ -187,15 +193,15 @@ export default class Comments extends React.Component {
                     }}
                     className="am-list"
                     pageSize={4}
-                    onScroll={() => {
-                        console.log('scroll');
-                    }}
+                    onScroll={() => { console.log('scroll'); }}
                     scrollRenderAheadDistance={500}
                     onEndReached={this.onEndReached}
                     onEndReachedThreshold={10}
                 />
             </div>
-
         );
     }
 }
+
+export default Following;
+

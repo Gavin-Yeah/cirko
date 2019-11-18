@@ -1,10 +1,12 @@
 /* eslint no-dupe-keys: 0 */
-import { ListView, NavBar,Button,Flex } from 'antd-mobile';
+import {ListView, NavBar, Button, Flex, Icon, Toast} from 'antd-mobile';
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Link} from 'react-router-dom'
 
+import * as ROUTES from "../../../../constants/routes";
 
+import add from '../../../icons/add.png'
 const data = [
     {
         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -41,7 +43,7 @@ function genData(pIndex = 0) {
     return dataBlob;
 }
 
-class PostPage extends React.Component {
+class MyPosts extends React.Component {
     constructor(props) {
         super(props);
         const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
@@ -74,7 +76,6 @@ class PostPage extends React.Component {
             });
         }, 600);
     }
-
     onEndReached = (event) => {
         // load new data
         // hasMore: from backend data, indicates whether it is the last page, here is false
@@ -92,9 +93,17 @@ class PostPage extends React.Component {
         }, 1000);
     }
 
+    onClickComment =(id)=>{
 
+        this.props.history.push(`/home/comments/${id}`)
+    }
 
     render() {
+        if(this.state.isLoading){
+            Toast.loading('Loading...', 0.5, () => {
+                console.log('Load complete !!!');
+            });
+        }
         const separator = (sectionID, rowID) => (
             <div
                 key={`${sectionID}-${rowID}`}
@@ -113,56 +122,85 @@ class PostPage extends React.Component {
             }
             const obj = data[index--];
             return (
-                <div key={rowID} style={{ padding: '0 15px' }}>
+                <div key={rowID} style={{padding: '0 15px'}} >
+
+                    {rowID==0?  <div style={{height:'70px' ,background:'white'}}></div>:<div/> /*show the 1st post completely*/}
                     <div
                         style={{
-                            lineHeight: '50px',
+                            lineHeight: '40px',
                             color: '#888',
-                            fontSize: 18,
+                            fontSize: 15,
                             borderBottom: '1px solid #F6F6F6',
                         }}
-                    >{obj.title}</div>
-                    <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
-                        <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
-                        <div style={{ lineHeight: 1 }}>
+                    >{obj.location}</div>
+                    <div>
+                        <Flex style={{  padding: '15px 0' }}>
+                            <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
+                            <div style={{ lineHeight: 1 }}>
+
+                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.title}</span></div>
+                                <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
+                            </div>
+                        </Flex>
+                        <Flex>
                             <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
-                            <div><span style={{ fontSize: '30px', color: '#FF6E27' }}>{rowID}</span>¥</div>
-                        </div>
+                        </Flex>
                     </div>
-                   <Flex>
-                       <Flex.Item><Link to={`/comments/${obj.id}`}><Button>Comment</Button></Link></Flex.Item>
-                   <Flex.Item><Button>Like</Button></Flex.Item>
-                   </Flex>
+
+                    <Flex>
+                        <Flex.Item><Button size='small' style={{background:'#a6daba' ,color:"white",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.id)}>Comment</Button></Flex.Item>
+                        <Flex.Item><Button size='small' style={{background:'#a6daba',color:"white",fontWeight: 'bold'}}>Like</Button></Flex.Item>
+                    </Flex>
                 </div>
+
             );
         };
         return (
+            <div >
+                <NavBar
+                    style={{backgroundColor: '#a6daba', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
+                    mode="light"
 
-            <ListView
-                ref={el => this.lv = el}
-                dataSource={this.state.dataSource}
+                    rightContent={
+                        <div onClick={()=>this.props.history.push(ROUTES.CREATEPOST)} style={{width: '40px',marginTop:"-20px",}}>
+                            <img src={add} style={{width:"50px"}} alt="add"/>
+                        </div>
 
-                renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                    {this.state.isLoading ? 'Loading...' : 'Loaded'}
-                </div>)}
+                    }
+                    leftContent={
+                        <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-20px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
+                        </div>
+                    }
 
-                renderRow={row}
-                renderSeparator={separator}
+                ><h1 style={{color:"white",}}>Favorite</h1>
+                </NavBar>
 
-                style={{
-                    height: this.state.height,
-                    overflow: 'auto',
-                }}
-                className="am-list"
-                pageSize={4}
-                onScroll={() => { console.log('scroll'); }}
-                scrollRenderAheadDistance={500}
-                onEndReached={this.onEndReached}
-                onEndReachedThreshold={10}
-            />
+                <ListView
+                    ref={el => this.lv = el}
+                    dataSource={this.state.dataSource}
+
+                    renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
+                        {this.state.isLoading ? 'Loading...' : 'Loaded'}
+                    </div>)}
+
+                    renderRow={row}
+                    renderSeparator={separator}
+
+                    style={{
+                        height: this.state.height,
+                        overflow: 'auto',
+                    }}
+                    className="am-list"
+                    pageSize={4}
+                    onScroll={() => { console.log('scroll'); }}
+                    scrollRenderAheadDistance={500}
+                    onEndReached={this.onEndReached}
+                    onEndReachedThreshold={10}
+                />
+            </div>
         );
     }
 }
 
-export default PostPage;
+export default MyPosts;
 

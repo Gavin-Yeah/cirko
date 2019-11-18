@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withAuthorization} from "../Session";
 import {NavBar, Button, Icon, List, TextareaItem, Flex,ImagePicker, WingBlank} from 'antd-mobile'
+import add from "../icons/add.png";
 const data = [{
     url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
     id: '2121',
@@ -60,14 +61,22 @@ class CreatePost extends Component {
         return (
             <div>
                 <NavBar
+                    style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
                     mode="light"
-                    icon={<Icon type="cross-circle" />}
-                    onLeftClick={() => {this.props.history.goBack()}}
-                    rightContent={
-                        <div onClick={this.onConfirm}><Icon key="0" type="check-circle-o"  />
+                    leftContent={
+                        <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-20px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
                         </div>
                     }
-                >Text</NavBar>
+
+
+                    rightContent={
+                        <div onClick={this.onConfirm}  style={{width: '40px',marginTop:"-20px",}}><img src={add} style={{width:"50px"}} alt="add"/>
+                        </div>
+
+                    }
+                ><h1 style={{color:"white",}}>Post</h1>
+                </NavBar>
+
                 <List>
                     <TextareaItem
 
