@@ -2,33 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd55fcb9-e49b-4ca8-b8c2-62db6a150df6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Comments/AddComment/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/EditAvatar/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/EditName/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/FavPosts/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/MyPosts/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Home/Following/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/icons/add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/icons/cirko.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config-overrides.js" beforeDir="false" afterPath="$PROJECT_DIR$/config-overrides.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Account/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Comments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreatePost/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreatePost/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditAvatar/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditName/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Firebase/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navigation/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PasswordChange/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/PasswordChange/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PostPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/PostPage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SignOut/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/SignOut/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SignUp/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignUp/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/routes.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -122,7 +96,7 @@
       <workItem from="1573689810659" duration="38000" />
       <workItem from="1573749878527" duration="11000" />
       <workItem from="1573954522115" duration="473000" />
-      <workItem from="1574026630698" duration="23749000" />
+      <workItem from="1574026630698" duration="24314000" />
     </task>
     <servers />
   </component>
