@@ -1,14 +1,14 @@
 /* eslint no-dupe-keys: 0 */
 import { ListView, NavBar, Button, Flex, Icon, Toast, WingBlank, Carousel, Grid, ImagePicker } from 'antd-mobile';
 import React from 'react'
-import ReactDOM from 'react-dom'
-import {Link} from 'react-router-dom'
+
 
 import * as ROUTES from "../../../../constants/routes";
 
 import add from '../../../icons/add.png'
-import { get_all_post } from "../../../Firebase/getPosts";
+import { get_all_post_by_id } from "../../../Firebase/getPosts";
 import withAuthentication from "../../../Session/withAuthentication";
+import ImageContainer from "../../../ImageContainer";
 let data = [
     {
         img: [{
@@ -97,14 +97,32 @@ class MyPosts extends React.Component {
             height: document.documentElement.clientHeight ,
             data: ['1', '2', '3'],
             imgHeight: 176,
+            currentImg:'',
+            isImgClick:false,
         };
     }
+
+    clickImg = (file)=>{
+
+        this.setState({
+            isImgClick:true,
+            currentImg:file.url
+        })
+    }
+    picClose=()=>{
+        console.log("picCLose")
+        this.setState({
+            isImgClick:false
+        })
+    }
+
+
 
     componentDidMount() {
         data=[];
         // you can scroll to the specified position
         // setTimeout(() => this.lv.scrollTo(0, 120), 800);
-        get_all_post(this.props.firebase,this.props.firebase.auth.currentUser.uid,(i)=>{
+        get_all_post_by_id(this.props.firebase,this.props.firebase.auth.currentUser.uid,(i)=>{
             data.push(i);
             console.log(i);
         })
@@ -193,8 +211,11 @@ class MyPosts extends React.Component {
                                 files={obj.pictures_url.map((item)=>{
                                     return {url:item}
                                 })}
+
                                 onChange={this.onChange}
-                                onImageClick={(index, fs) => console.log(index, fs)}
+                                onImageClick={(index, fs) => {
+                                    this.clickImg(fs[index]);
+                                }}
                                 selectable={false}
                                 disableDelete={true}
                                 length={3}
@@ -215,12 +236,12 @@ class MyPosts extends React.Component {
         return (
             <div >
                 <NavBar
-                    style={{backgroundColor: '#a6daba', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
+                    style={{backgroundColor: '#a6daba', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"7vh",position:'fixed',width:"100%", top:0,zIndex:1}}
                     mode="light"
 
                     rightContent={
-                        <div onClick={()=>this.props.history.push(ROUTES.CREATEPOST)} style={{width: '40px',marginTop:"-20px",}}>
-                            <img src={add} style={{width:"50px"}} alt="add"/>
+                        <div onClick={()=>this.props.history.push(ROUTES.CREATEPOST)} style={{width: '40px',marginTop:"-10px",}}>
+                            <img src={add} style={{width:"40px"}} alt="add"/>
                         </div>
 
                     }
@@ -231,6 +252,8 @@ class MyPosts extends React.Component {
 
                 ><h1 style={{color:"white",}}>Favorite</h1>
                 </NavBar>
+
+                {this.state.isImgClick&&<ImageContainer currentImg={this.state.currentImg} picClose={this.picClose}/>}
 
                 <ListView
                     ref={el => this.lv = el}

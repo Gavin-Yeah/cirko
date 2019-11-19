@@ -8,17 +8,22 @@ import { withFirebase } from '../Firebase';
 function updateImage(firebase, user_ID, Image, callback) {
     //get the storage reference
     var storage = firebase.storage;
+    var db= firebase.db;
     var storageRef = storage.ref('images/' + user_ID + '.jpg');
     //store image to storage
     storageRef.put(Image).then(function (snapshot) {
         storageRef.getDownloadURL().then((url) => {
-            firebase.auth.currentUser.updateProfile({
-                photoURL: url
-            }).then(() => {
-                console.log("succeed")
-                callback()
-            }).catch((err) => {
-                console.log("err", err)
+            db.collection("users").doc(user_ID).update({
+                avatarUtl:url
+            }).then(()=>{
+                firebase.auth.currentUser.updateProfile({
+                    photoURL: url
+                }).then(() => {
+                    console.log("succeed")
+                    callback()
+                }).catch((err) => {
+                    console.log("err", err)
+                })
             })
         })
     });
@@ -30,14 +35,12 @@ function updateImage(firebase, user_ID, Image, callback) {
 function updateUserName(firebase, user_ID, user_name/*...*/, callback) {
     var db = firebase.db;
     console.log( db.collection("users").doc(user_ID));
-    db.collection("users").doc(user_ID).set({
-
+    db.collection("users").doc(user_ID).update({
         username: user_name,
-        /*...*/
     })
         .then(function (docRef) {
             firebase.auth.currentUser.updateProfile({
-                displayName: user_name,
+                displayName: user_name
             }).then(() => {
                 callback()
             }).catch((err) => {
@@ -70,14 +73,16 @@ function savePostToDB(firebase, user_id, username, posts_num, content, location,
     //get the database reference
     var db = firebase.db;
     //generate post id
-    var post_id = user_id + "_post_" + posts_num.toString();
-    posts_num = posts_num + 1;
+    var post_id = user_id + "_post_" + posts_num;
+    posts_num = posts_num*1 + 1;
     //generate time
     var myDate = new Date();
     var time = myDate.toLocaleString();
 
     //store post into post db
     db.collection("posts").doc(post_id).set({
+        userAvatar:firebase.auth.currentUser.photoURL,
+        postId:post_id,
         userID: user_id,
         username:username,
         content: content,

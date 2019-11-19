@@ -34,7 +34,7 @@ class CreatePost extends Component {
         const uid = firebase.auth.currentUser.uid;
         const username = firebase.auth.currentUser.displayName;
         const callback = ({posts_num})=>{
-            savePostToDB(firebase,uid,username,posts_num,this.state.content,this.state.location,this.state.files,()=>{
+            savePostToDB(firebase,uid,username,posts_num||0,this.state.content,this.state.location,this.state.files,()=>{
                 this.props.history.goBack();
             })
         }

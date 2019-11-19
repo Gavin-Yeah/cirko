@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { compose } from 'recompose';
-import {Button, InputItem}from 'antd-mobile'
+import { Button, InputItem } from 'antd-mobile'
 import { withFirebase } from '../Firebase';
 const SignUpPage = () => (
     <div>
@@ -42,6 +42,7 @@ class SignUpFormBase extends Component {
                 return this.props.firebase
                     .user(authUser.user.uid)
                     .set({
+                            avatarUrl:authUser.user.photoURL,
                             following: [],
                             followers: [],
                             posts: [],

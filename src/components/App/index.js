@@ -12,20 +12,12 @@ import SignUpPage from '../SignUp';
 import SignInPage from '../SignIn';
 import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
-import AccountPage from '../Home/Account';
+
 import AdminPage from '../Admin';
 import * as ROUTES from '../../constants/routes';
-import Comments from "../Comments";
-import AddComment from '../Comments/AddComment'
-import { withFirebase } from '../Firebase';
-//the user data is stored in App props
-import EditAvatar from '../Home/Account/EditAvatar'
+
 import { withAuthentication } from '../Session';
-import {EDITAVATAR} from "../../constants/routes";
-import CreatePost from '../CreatePost'
-import MyPosts from "../Home/Account/MyPosts";
-import FavPosts from "../Home/Account/FavPosts";
-import {TabBar} from "antd-mobile";
+
 const App = () => (
     <Router>
         <div>

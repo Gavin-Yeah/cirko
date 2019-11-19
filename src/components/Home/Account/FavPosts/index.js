@@ -1,12 +1,12 @@
 /* eslint no-dupe-keys: 0 */
-import {ListView, NavBar, Button, Flex, Icon, Toast} from 'antd-mobile';
+import { ListView, NavBar, Button, Flex, Icon, Toast, ImagePicker } from 'antd-mobile';
 import React from 'react'
-import ReactDOM from 'react-dom'
-import {Link} from 'react-router-dom'
+
 
 import * as ROUTES from "../../../../constants/routes";
 
 import add from '../../../icons/add.png'
+import ImageContainer from "../../../ImageContainer";
 const data = [
     {
         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -60,8 +60,27 @@ class FavPosts extends React.Component {
             dataSource,
             isLoading: true,
             height: document.documentElement.clientHeight ,
+            currentImg:'',
+            isImgClick:false,
         };
     }
+
+
+    clickImg = (file)=>{
+
+        this.setState({
+            isImgClick:true,
+            currentImg:file.url
+        })
+    }
+    picClose=()=>{
+        console.log("picCLose")
+        this.setState({
+            isImgClick:false
+        })
+    }
+
+
 
     componentDidMount() {
         // you can scroll to the specified position
@@ -152,6 +171,20 @@ class FavPosts extends React.Component {
                        <Flex.Item><Button size='small' style={{background:'#a6daba' ,color:"white",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.id)}>Comment</Button></Flex.Item>
                    <Flex.Item><Button size='small' style={{background:'#a6daba',color:"white",fontWeight: 'bold'}}>Like</Button></Flex.Item>
                    </Flex>
+                    <ImagePicker
+                        files={obj.pictures_url.map((item)=>{
+                            return {url:item}
+                        })}
+
+                        onChange={this.onChange}
+                        onImageClick={(index, fs) => {
+                            this.clickImg(fs[index]);
+                        }}
+                        selectable={false}
+                        disableDelete={true}
+                        length={3}
+
+                    />
                 </div>
 
             );
@@ -175,7 +208,7 @@ class FavPosts extends React.Component {
 
                 ><h1 style={{color:"white",}}>Favorite</h1>
                 </NavBar>
-
+                {this.state.isImgClick&&<ImageContainer currentImg={this.state.currentImg} picClose={this.picClose}/>}
                 <ListView
                     ref={el => this.lv = el}
                     dataSource={this.state.dataSource}

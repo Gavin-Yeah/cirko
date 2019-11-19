@@ -11,14 +11,12 @@ import { Flex, WhiteSpace, InputItem, Button , List} from 'antd-mobile';
 import * as firebaseui from 'firebaseui'
 const SignInPage = () => (
     <div>
-      <div className={"icon"}>
-
-
-              <img className={"image"} src={require("../icons/cirko-trans.png")} alt=""/>
-              <h2 className={"appName"}>CIRKO</h2>
-
-
+      <div className={"icon1"}>
+          <img className={"image"} src={require("../icons/cirko-trans.png")} alt=""/>
       </div>
+        <div className={"icon2"}>
+            <h2 className={"appName"}>CIRKO</h2>
+        </div>
         <SignInForm />
         <br/>
         <SignInGoogle />
@@ -119,6 +117,9 @@ class SignInGoogleBase extends Component {
                         username: socialAuthUser.user.displayName,
                         email: socialAuthUser.user.email,
                         roles: {},
+                            avatarUrl:socialAuthUser.user.photoURL,
+                            userId:socialAuthUser.user.uid,
+
                     },
                         { merge: true });
             })
@@ -136,7 +137,10 @@ class SignInGoogleBase extends Component {
         return (
             <div  >
                 <Button  type={'submit'} onClick={this.onSubmit}  >
-                    <span><img className={"googleIcon"} src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt=""/> Sign In with Google</span>
+                   <div style={{textAlign:"top", alignItems:'center'}}>
+                    <img className={"googleIcon"} src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt=""/>
+                       <span className={"google"}>Sign In with Google</span>
+                   </div>
                    </Button>
                 {error && <p>{error.message}</p>}
             </div>

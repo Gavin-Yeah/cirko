@@ -142,7 +142,7 @@ class HomePage extends React.Component {
                         />
                         }
                         selected={this.state.selectedTab === 'blueTab'}
-                        badge={1}
+
                         onPress={() => {
                             this.setState({
                                 selectedTab: 'blueTab',

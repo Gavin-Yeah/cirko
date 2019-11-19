@@ -1,11 +1,11 @@
 /* eslint no-dupe-keys: 0 */
-import { ListView, NavBar,Button,Flex } from 'antd-mobile';
+import { ListView, NavBar, Button, Flex, ImagePicker } from 'antd-mobile';
 import React from 'react'
-import ReactDOM from 'react-dom'
-import {Link} from 'react-router-dom'
+
 
 import * as ROUTES from "../../../constants/routes";
 import add from "../../icons/add.png";
+import NavBar1 from "../NavBar1";
 const data = [
     {
         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -131,7 +131,8 @@ class Following extends React.Component {
             return (
 
 
-                <div key={rowID} style={{ padding: '0 15px' }}>
+                <div key={rowID} style={{padding: '0 15px'}} >
+
                     {rowID==0?  <div style={{height:'70px' ,background:'white'}}></div>:<div/> /*show the 1st post completely*/}
                     <div
                         style={{
@@ -143,39 +144,45 @@ class Following extends React.Component {
                     >{obj.location}</div>
                     <div>
                         <Flex style={{  padding: '15px 0' }}>
-                            <img style={{ height: '64px', marginRight: '15px' }} src={obj.img} alt="" />
+                            <img style={{ height: '64px', marginRight: '15px' }} src={"https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png"} alt="" />
                             <div style={{ lineHeight: 1 }}>
 
-                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.title}</span></div>
+                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.username}</span></div>
                                 <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
                             </div>
                         </Flex>
                         <Flex>
-                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.des}</div>
+                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.content}</div>
                         </Flex>
+                        <div>
+                            <ImagePicker
+                                files={obj.pictures_url.map((item)=>{
+                                    return {url:item}
+                                })}
+
+                                onChange={this.onChange}
+                                onImageClick={(index, fs) => {
+                                    this.clickImg(fs[index]);
+                                }}
+                                selectable={false}
+                                disableDelete={true}
+                                length={3}
+
+                            />
+
+                        </div>
                     </div>
 
                     <Flex>
-                        <Flex.Item><Button size='small' style={{background:'#5396a5' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.id)}>Comment</Button></Flex.Item>
-                        <Flex.Item><Button size='small' style={{background:'#5396a5',color:"#ecfcee",fontWeight: 'bold'}}>Likes ({obj.likes})</Button></Flex.Item>
+                        <Flex.Item><Button size='small' style={{background:'#a6daba' ,color:"white",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.id)}>Comment</Button></Flex.Item>
+                        <Flex.Item><Button size='small' style={{background:'#a6daba',color:"white",fontWeight: 'bold'}}>Like</Button></Flex.Item>
                     </Flex>
                 </div>
             );
         };
         return (
             <div >
-                <NavBar
-                    style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
-                    mode="light"
-
-                    rightContent={
-                        <div onClick={()=>this.props.history.push(ROUTES.CREATEPOST)} style={{width: '40px',marginTop:"-20px",}}>
-                            <img src={add} style={{width:"50px"}} alt="add"/>
-                        </div>
-
-                    }
-                ><h1 style={{color:"white",}}>CIRKO</h1>
-                </NavBar>
+                <NavBar1 history={this.props.history}/>
                 <ListView
                     ref={el => this.lv = el}
                     dataSource={this.state.dataSource}

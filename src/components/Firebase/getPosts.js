@@ -1,4 +1,4 @@
-function get_all_post(firebase,user_id, callback){
+function get_all_post_by_id(firebase,user_id, callback){
     get_all_post_id_from_db(firebase,user_id, callback);
 }
 
@@ -41,4 +41,24 @@ function get_post(firebase,post_id,callback) {
         }
     });
 }
-export {get_all_post}
+function get_all_post(firebase, callback){
+    var list_posts = [];
+    let promise = new Promise(function(resolve, reject){
+        help_get_all_post(firebase, (post)=>{list_posts.unshift(post);})
+        resolve()
+    });
+    promise.then(()=>{
+        callback(list_posts);
+    })
+
+}
+
+function help_get_all_post(firebase, callback) {
+    var db = firebase.db;
+    db.collection("posts").get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            callback(doc.data());
+        });
+    });
+}
+export {get_all_post_by_id,get_all_post}

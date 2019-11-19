@@ -9,6 +9,7 @@ import SignOutButton from "./SignOut";
 import * as ROUTES from "../../../constants/routes";
 import EditAvatar from "./EditAvatar";
 import add from "../../icons/add.png";
+import NavBar1 from "../NavBar1";
 class AccountPage extends Component {
     state = {
         avatarUrl:"https://image.flaticon.com/icons/png/128/149/149071.png",
@@ -46,18 +47,8 @@ class AccountPage extends Component {
                     <div >
 
 
-                        <NavBar
-                            style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
-                            mode="light"
+                      <NavBar1 history={this.props.history}/>
 
-                            rightContent={
-                                <div onClick={()=>this.props.history.push(ROUTES.CREATEPOST)} style={{width: '40px',marginTop:"-20px",}}>
-                                    <img src={add} style={{width:"50px"}} alt="add"/>
-                                </div>
-
-                            }
-                        ><h1 style={{color:"white",}}>CIRKO</h1>
-                        </NavBar>
                         <div style={{height:'70px'}}></div>
                         <Flex className={"userInfoContainer"}>
                             <Flex.Item onClick={this.onClickAvatar}><img className='avatar' src={this.state.avatarUrl} alt="avatar"/></Flex.Item>

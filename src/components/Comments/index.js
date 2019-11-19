@@ -1,8 +1,6 @@
-import { Button, Flex, Icon, ListView, NavBar, TabBar } from 'antd-mobile';
+import {  Flex, ListView, NavBar } from 'antd-mobile';
 import React from "react";
-import ReactDOM from "react-dom"
-import { NavLink } from "react-router-dom";
-import * as ROUTES from '../../constants/routes'
+
 import add from "../icons/add.png";
 
 const data = [
@@ -156,16 +154,16 @@ export default class Comments extends React.Component {
         return (
             <div>
                 <NavBar
-                    style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
+                    style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"7vh",position:'fixed',width:"100%", top:0,zIndex:1}}
                     mode="light"
                     leftContent={
-                        <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-20px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
+                        <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-10px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
                     </div>
                         }
 
 
                     rightContent={
-                        <div onClick={this.onClickAdd}  style={{width: '40px',marginTop:"-20px",}}><img src={add} style={{width:"50px"}} alt="add"/>
+                        <div onClick={this.onClickAdd}  style={{width: '40px',marginTop:"-10px",}}><img src={add} style={{width:"40px"}} alt="add"/>
                         </div>
 
                     }
