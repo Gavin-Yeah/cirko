@@ -3,7 +3,8 @@ import React from 'react';
 import {
     HashRouter as Router,
     Route,
-    Redirect
+    Redirect,
+    Switch
 } from 'react-router-dom';
 
 
@@ -22,9 +23,9 @@ const App = () => (
     <Router>
         <div>
 
+            <Switch>
 
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
-            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+            {/*<Route path={ROUTES.SIGN_UP} component={SignUpPage} />*/}
             <Route path={ROUTES.SIGN_IN} component={SignInPage} />
             <Route
                 path={ROUTES.PASSWORD_FORGET}
@@ -36,6 +37,7 @@ const App = () => (
 
             {/*<Route path={ROUTES.EDITAVATAR} component={EditAvatar}/>*/}
             <Redirect to={ROUTES.POSTPAGE}/>
+            </Switch>
         </div>
     </Router>
 );

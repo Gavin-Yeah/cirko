@@ -125,7 +125,7 @@ class SignInGoogleBase extends Component {
             })
             .then(socialAuthUser => {
                 this.setState({ error: null });
-                this.props.history.push(ROUTES.HOME);
+                this.props.history.push(ROUTES.POSTPAGE);
             })
             .catch(error => {
                 this.setState({ error });

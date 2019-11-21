@@ -2,25 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd55fcb9-e49b-4ca8-b8c2-62db6a150df6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Home/NavBar1/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ImageContainer/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/utils/getLocation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Comments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Comments/AddComment/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/AddComment/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CreatePost/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreatePost/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/firebase.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Firebase/getPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/getPosts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Firebase/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/FavPosts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/FavPosts/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/MyPosts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/MyPosts/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Following/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Following/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/PostPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/PostPage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SignIn/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignIn/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/SignIn/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignIn/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SignUp/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignUp/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/utils/getLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/utils/getLocation.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +108,9 @@
       <workItem from="1573749878527" duration="11000" />
       <workItem from="1573954522115" duration="473000" />
       <workItem from="1574026630698" duration="38669000" />
-      <workItem from="1574121000908" duration="24008000" />
+      <workItem from="1574121000908" duration="30012000" />
+      <workItem from="1574207223021" duration="5183000" />
+      <workItem from="1574301052104" duration="1266000" />
     </task>
     <servers />
   </component>

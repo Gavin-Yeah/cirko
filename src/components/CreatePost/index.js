@@ -3,6 +3,8 @@ import {withAuthentication} from "../Session";
 import {NavBar, Button, Icon, List, TextareaItem, Flex,ImagePicker, WingBlank} from 'antd-mobile'
 import add from "../icons/add.png";
 import { get_user_profile, savePostToDB } from "../Firebase/upload";
+import { get_location } from "../utils/getLocation";
+
 
 class CreatePost extends Component {
     state = {
@@ -25,24 +27,35 @@ class CreatePost extends Component {
         })
 
     }
+
+
     onChange = event => {
         this.setState({ content: event });
     };
     onConfirm = ()=>{
+    // get_location();
 
-        const firebase = this.props.firebase;
-        const uid = firebase.auth.currentUser.uid;
-        const username = firebase.auth.currentUser.displayName;
-        const callback = ({posts_num})=>{
-            savePostToDB(firebase,uid,username,posts_num||0,this.state.content,this.state.location,this.state.files,()=>{
-                this.props.history.goBack();
-            })
-        }
-         get_user_profile(firebase,uid,callback)
+        
+
+         get_location((pos)=>{
+             const firebase = this.props.firebase;
+             const uid = firebase.auth.currentUser.uid;
+             const username = firebase.auth.currentUser.displayName;
+
+             const callback = ({posts_num})=>{
+                 savePostToDB(firebase,uid,username,posts_num||0,this.state.content,this.state.files,pos,()=>{
+                     this.props.history.goBack();
+                 })
+             }
+              get_user_profile(firebase,uid,callback)
 
 
 
-        //this.props.history.goBack()
+             this.props.history.goBack()
+         });
+        
+        
+
     }
 
     onChangePic = (files, type, index) => {
@@ -70,7 +83,7 @@ class CreatePost extends Component {
         return (
             <div>
                 <NavBar
-                    style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
+                    style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"7vh",position:'fixed',width:"100%", top:0,zIndex:1}}
                     mode="light"
                     leftContent={
                         <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-20px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
@@ -79,7 +92,7 @@ class CreatePost extends Component {
 
 
                     rightContent={
-                        <div onClick={this.onConfirm}  style={{width: '40px',marginTop:"-20px",}}><img src={add} style={{width:"50px"}} alt="add"/>
+                        <div onClick={this.onConfirm}  style={{width: '40px',marginTop:"-10px",}}><img src={add} style={{width:"40px"}} alt="add"/>
                         </div>
 
                     }

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
 import {NavBar, Button, Icon, List, TextareaItem, Flex,ImagePicker, WingBlank} from 'antd-mobile'
+import { comments } from "../../Firebase/upload";
+import withAuthentication from "../../Session/withAuthentication";
 
 class AddComment extends Component {
     state = {
@@ -25,9 +27,11 @@ class AddComment extends Component {
         this.setState({ content: event });
     };
     onConfirm = ()=>{
+        comments(this.props.firebase, this.props.firebase.auth.currentUser.uid,this.state.content,this.state.postId,()=>{
+            this.props.history.goBack();
+        });
 
 
-        this.props.history.goBack()
     }
 
 
@@ -63,4 +67,4 @@ class AddComment extends Component {
         );
     }
 }
-export default AddComment;
+export default withAuthentication(AddComment);

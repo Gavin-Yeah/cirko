@@ -61,4 +61,64 @@ function help_get_all_post(firebase, callback) {
         });
     });
 }
+
+
+
+
+// function fliter(firebase,list_posts, distance, user_location, callback){
+//     let location_str = "";
+//     let mydestinations = [];
+//     console.log(list_posts);
+//     for(let i = 0; i<list_posts.length; i++) {
+//         mydestinations.push(new google.maps.LatLng(list_posts[i].location.lat, list_posts[i].location.lng));
+//     }
+//     let ori = new google.maps.LatLng(user_location.lat, user_location.lng);
+//     var service = new google.maps.DistanceMatrixService();
+//     let return_list = [];
+//     service.getDistanceMatrix(
+//         {
+//             origins: user_location,
+//             destinations: mydestinations,
+//             travelMode: 'WALKING'
+//         }, ()=>{return_list = fliter_help(response, status, distance, list_posts)
+//             callback(return_list);
+//         });
+// }
+//
+// function fliter_help(response, status, dis, list_posts) {
+//     let distances = [];
+//     let return_list = [];
+//     if (status == 'OK') {
+//         var origins = response.originAddresses;
+//         var destinations = response.destinationAddresses;
+//
+//         for (var i = 0; i < origins.length; i++) {
+//             var results = response.rows[i].elements;
+//             for (var j = 0; j < results.length; j++) {
+//                 var element = results[j];
+//                 var distance = element.distance.text;
+//                 distances.push(distance);
+//                 var duration = element.duration.text;
+//                 var from = origins[i];
+//                 var to = destinations[j];
+//             }
+//         }
+//
+//         for(let i = 0; i < distances.length; i++) {
+//             if(distances[i] < dis) {
+//                 return_list.push(list_posts[i]);
+//             }
+//         }
+//         return return_list;
+//     }
+//     return return_list;
+// }
+
+
+
+
+
+
+
+
 export {get_all_post_by_id,get_all_post}

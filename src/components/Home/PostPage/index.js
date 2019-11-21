@@ -72,7 +72,7 @@ class PostPage extends React.Component {
             isImgClick:false,
             hasMore:false,
             data:[{
-        img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
+                pictures_url: [],
         title: 'Eat the week',
         des: '不是所有的兼职汪都需要风吹日晒',
         time: '11/12/2019',
@@ -159,7 +159,7 @@ slider =(e)=>{
       })
 }
 likes = ()=>{
-    get_location()
+
 }
     render() {
         if(this.state.isLoading){
@@ -268,28 +268,61 @@ likes = ()=>{
                        <Icon size='small' style={{borderRadius:'100%',background:"lightgrey",marginTop:'3vh', textAlign:'center',width:'30px' ,fontSize:"4vh"} }type={'check'} />
                     </Flex.Item>
                 </Flex>
-            <ListView
-                ref={el => this.lv = el}
-                dataSource={this.state.dataSource}
+          <div>
+              {
+                  this.state.data.map((obj,index)=>{
+                      return(
+                          <div key={index} style={{ padding: '0 15px' }}>
+                              {index==0?  <div style={{height:'10vh' ,background:'white'}}></div>:<div/> /*show the 1st post completely*/}
+                              <div
+                                  style={{
+                                      lineHeight: '40px',
+                                      color: '#888',
+                                      fontSize: 15,
+                                      borderBottom: '1px solid #F6F6F6',
+                                  }}
+                              >{obj.location.lat+" "+ obj.location.lng}</div>
+                              <div>
+                                  <Flex style={{  padding: '15px 0' }}>
+                                      <img style={{ height: '64px', marginRight: '15px' }} src={obj.userAvatar} alt="" />
+                                      <div style={{ lineHeight: 1 }}>
 
-                renderFooter={() => (<div style={{ padding: 30, textAlign: 'center' }}>
-                    {this.state.isLoading ? 'Loading...' : 'Loaded'}
-                </div>)}
+                                          <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.username}</span></div>
+                                          <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
+                                      </div>
+                                  </Flex>
+                                  <Flex>
+                                      <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.content}</div>
+                                  </Flex>
+                                  <div>
+                                      <ImagePicker
+                                          files={obj.pictures_url.map((item)=>{
+                                              return {url:item}
+                                          })}
 
-                renderRow={row}
-                renderSeparator={separator}
+                                          onChange={this.onChange}
+                                          onImageClick={(index, fs) => {
+                                              this.clickImg(fs[index]);
+                                          }}
+                                          selectable={false}
+                                          disableDelete={true}
+                                          length={3}
 
-                style={{
-                    height: this.state.height,
-                    overflow: 'auto',
-                }}
-                initialListSize={4}
-                pageSize={4}
-                onScroll={() => { console.log('scroll'); }}
-                scrollRenderAheadDistance={500}
+                                      />
 
-                onEndReachedThreshold={10}
-            />
+                                  </div>
+                              </div>
+
+                              <Flex>
+                                  <Flex.Item><Button size='small' style={{background:'#5396a5' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.postId)}>Comment</Button></Flex.Item>
+                                  <Flex.Item><Button size='small' style={{background:'#5396a5',color:"#ecfcee",fontWeight: 'bold'}} onClick={this.likes}>Likes {!!!obj.likes?'('+obj.likes.length+')':""}</Button></Flex.Item>
+                              </Flex>
+                          </div>
+                      )
+                  })
+              }
+
+          </div>
 
             </div>
         );
