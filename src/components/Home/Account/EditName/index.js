@@ -7,9 +7,13 @@ import * as ROUTES from "../../../../constants/routes";
 class EditName extends Component {
 
     onClick = ()=>{
-        updateUserName(this.props.firebase,this.props.firebase.auth.currentUser.uid,this.nameRef.current.state.value,()=>{
+        updateUserName(this.props.firebase,this.props.firebase.auth.currentUser.uid,this.nameRef.current.state.value).then((data)=>{
+            console.log("name update"+ data)
             this.props.history.replace(ROUTES.ACCOUNT);
         });
+
+
+
 
     }
     nameRef = React.createRef();

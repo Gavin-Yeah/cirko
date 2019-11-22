@@ -51,7 +51,7 @@ class CreatePost extends Component {
 
 
 
-             this.props.history.goBack()
+
          });
         
         

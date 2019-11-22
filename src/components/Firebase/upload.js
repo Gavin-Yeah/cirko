@@ -5,51 +5,58 @@ import { withFirebase } from '../Firebase';
 
 
 //when user select a picture as a (head-pic)? save it to the storage
-function updateImage(firebase, user_ID, Image, callback) {
-    //get the storage reference
-    var storage = firebase.storage;
-    var db= firebase.db;
-    var storageRef = storage.ref('images/' + user_ID + '.jpg');
-    //store image to storage
-    storageRef.put(Image).then(function (snapshot) {
-        storageRef.getDownloadURL().then((url) => {
-            db.collection("users").doc(user_ID).update({
-                avatarUrl:url
-            }).then(()=>{
-                firebase.auth.currentUser.updateProfile({
-                    photoURL: url
-                }).then(() => {
-                    console.log("succeed")
-                    callback()
-                }).catch((err) => {
-                    console.log("err", err)
+function updateImage(firebase, user_ID, Image) {
+    return new Promise((resolve, reject)=>{
+        //get the storage reference
+        var storage = firebase.storage;
+        var db= firebase.db;
+        var storageRef = storage.ref('images/' + user_ID + '.jpg');
+        //store image to storage
+        storageRef.put(Image).then(function (snapshot) {
+            storageRef.getDownloadURL().then((url) => {
+                db.collection("users").doc(user_ID).update({
+                    avatarUrl:url
+                }).then(()=>{
+                    firebase.auth.currentUser.updateProfile({
+                        photoURL: url
+                    }).then(() => {
+                        resolve("succeed");
+
+                    }).catch((err) => {
+                       resolve(err.toString())
+                    })
                 })
             })
-        })
+        });
     });
+
 
 }
 
 //when user wants to save his profile
 //if no picture selected before? should we just create a no pic?
-function updateUserName(firebase, user_ID, user_name/*...*/, callback) {
-    var db = firebase.db;
-    console.log( db.collection("users").doc(user_ID));
-    db.collection("users").doc(user_ID).update({
-        username: user_name,
-    })
-        .then(function (docRef) {
-            firebase.auth.currentUser.updateProfile({
-                displayName: user_name
-            }).then(() => {
-                callback()
-            }).catch((err) => {
-                console.log("err", err)
-            })
-        })
-        .catch(function (error) {
-            console.error("Error writing user profile to db", error);
-        });
+ function updateUserName(firebase, user_ID, user_name/*...*/) {
+   return new Promise((resolve, reject)=>{
+       var db = firebase.db;
+       console.log( db.collection("users").doc(user_ID));
+       db.collection("users").doc(user_ID).update({
+           username: user_name,
+       })
+           .then(function (docRef) {
+               firebase.auth.currentUser.updateProfile({
+                   displayName: user_name
+               }).then(() => {
+                    resolve("success")
+               }).catch((err) => {
+                   reject(err.toString())
+
+               })
+           })
+           .catch(function (error) {
+               console.error("Error writing user profile to db", error);
+           });
+
+   })
 
 
 }

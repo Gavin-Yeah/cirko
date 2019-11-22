@@ -26,7 +26,10 @@ class EditAvatar extends Component {
         // this.props.firebase.auth.currentUser.updateProfile({
         //     photoURL:files[0]
         // })
-        updateImage(this.props.firebase,this.props.firebase.auth.currentUser.uid,files[0].file,()=>{this.props.history.goBack();});
+        updateImage(this.props.firebase,this.props.firebase.auth.currentUser.uid,files[0].file).then((data)=>{
+            console.log(data);
+           this.props.history.goBack();
+        });
 
 
 

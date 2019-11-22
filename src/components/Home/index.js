@@ -107,6 +107,13 @@ class HomePage extends React.Component {
             </div>
         );
     }
+    // componentDidMount() {
+    //     this.setState({
+    //         selectedTab:"my"
+    //     })
+    //     this.props.history.push(ROUTES.ACCOUNT)
+    //
+    // }
 
     render() {
 
@@ -141,11 +148,11 @@ class HomePage extends React.Component {
                             background: 'url(https://image.flaticon.com/icons/png/128/148/148845.png) center center /  21px 21px no-repeat' }}
                         />
                         }
-                        selected={this.state.selectedTab === 'blueTab'}
+                        selected={this.state.selectedTab === 'postpage'}
 
                         onPress={() => {
                             this.setState({
-                                selectedTab: 'blueTab',
+                                selectedTab: 'postpage',
                             });
                             this.props.history.push(ROUTES.POSTPAGE)
                         }}
@@ -155,43 +162,42 @@ class HomePage extends React.Component {
                       <Route path={ROUTES.POSTPAGE} component={PostPage}/>
                     </TabBar.Item>
 
-                    <TabBar.Item
-                        icon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://image.flaticon.com/icons/png/128/148/148800.png) center center /  21px 21px no-repeat' }}
-                            />
-                        }
-                        selectedIcon={
-                            <div style={{
-                                width: '22px',
-                                height: '22px',
-                                background: 'url(https://image.flaticon.com/icons/png/128/148/148800.png) center center /  21px 21px no-repeat' }}
-                            />
-                        }
-                        title="Following"
-                        key="Following"
-                        dot
-                        selected={this.state.selectedTab === 'greenTab'}
-                        onPress={() => {
-                            this.setState({
-                                selectedTab: 'greenTab',
-                            });
-                            this.props.history.push(ROUTES.FOLLOWING)
-                        }}
-                    >
-                        <Route path={ROUTES.FOLLOWING} component={Following}/>
-                    </TabBar.Item>
+                    {/*<TabBar.Item*/}
+                    {/*    icon={*/}
+                    {/*        <div style={{*/}
+                    {/*            width: '22px',*/}
+                    {/*            height: '22px',*/}
+                    {/*            background: 'url(https://image.flaticon.com/icons/png/128/148/148800.png) center center /  21px 21px no-repeat' }}*/}
+                    {/*        />*/}
+                    {/*    }*/}
+                    {/*    selectedIcon={*/}
+                    {/*        <div style={{*/}
+                    {/*            width: '22px',*/}
+                    {/*            height: '22px',*/}
+                    {/*            background: 'url(https://image.flaticon.com/icons/png/128/148/148800.png) center center /  21px 21px no-repeat' }}*/}
+                    {/*        />*/}
+                    {/*    }*/}
+                    {/*    title="Following"*/}
+                    {/*    key="Following"*/}
+                    {/*    selected={this.state.selectedTab === 'following'}*/}
+                    {/*    onPress={() => {*/}
+                    {/*        this.setState({*/}
+                    {/*            selectedTab: 'following',*/}
+                    {/*        });*/}
+                    {/*        this.props.history.push(ROUTES.FOLLOWING)*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    {/*    <Route path={ROUTES.FOLLOWING} component={Following}/>*/}
+                    {/*</TabBar.Item>*/}
                      <TabBar.Item
                         icon={{ uri: 'https://image.flaticon.com/icons/png/128/124/124576.png' }}
                         selectedIcon={{ uri: 'https://image.flaticon.com/icons/png/128/124/124576.png' }}
                         title="My"
                         key="my"
-                        selected={this.state.selectedTab === 'yellowTab'}
+                        selected={this.state.selectedTab === 'my'}
                         onPress={() => {
                             this.setState({
-                                selectedTab: 'yellowTab',
+                                selectedTab: 'my',
                             });
                             this.props.history.push(ROUTES.ACCOUNT)
 

@@ -10,10 +10,12 @@ import * as ROUTES from "../../../constants/routes";
 import EditAvatar from "./EditAvatar";
 import add from "../../icons/add.png";
 import NavBar1 from "../NavBar1";
+import withAuthentication from "../../Session/withAuthentication";
+const avat=  "https://image.flaticon.com/icons/png/128/149/149071.png";
 class AccountPage extends Component {
     state = {
-        avatarUrl:"https://image.flaticon.com/icons/png/128/149/149071.png",
-        userName:"",
+        avatarUrl:this.props.firebase.auth.currentUser.photoURL,
+        userName:this.props.firebase.auth.currentUser.displayName,
 
     }
     onClickAvatar=()=>{
@@ -39,11 +41,12 @@ class AccountPage extends Component {
     }
 
 
+
     render() {
 
         return (
-            <AuthUserContext.Consumer>
-                {authUser => (
+
+
                     <div >
 
 
@@ -80,8 +83,7 @@ class AccountPage extends Component {
 
                        <SignOutButton/>
                     </div>
-                )}
-            </AuthUserContext.Consumer>
+
 
 
         );
@@ -89,5 +91,5 @@ class AccountPage extends Component {
 }
 
 
-const condition = authUser => !!authUser;  //set condition
-export default withAuthorization(condition)(AccountPage);
+
+export default withAuthentication(AccountPage);
