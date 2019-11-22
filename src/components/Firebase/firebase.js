@@ -6,13 +6,14 @@ import 'firebase/functions'
 
 
 const config = {
-    apiKey: "AIzaSyD-wSi7Z6Jd0wc-H8FWTktn1zakUMx9VI0",
-    authDomain: "tamplete-7864c.firebaseapp.com",
-    databaseURL: "https://tamplete-7864c.firebaseio.com",
-    projectId: "tamplete-7864c",
-    storageBucket: "tamplete-7864c.appspot.com",
-    messagingSenderId: "272853644885",
-    appId: "1:272853644885:web:b4e5ba9dc2cbfe72ee86dc"
+    apiKey: "AIzaSyDCldN3MV9CCn8Pw-k2tJKJJC9UHBmVqu0",
+    authDomain: "cirko-74c69.firebaseapp.com",
+    databaseURL: "https://cirko-74c69.firebaseio.com",
+    projectId: "cirko-74c69",
+    storageBucket: "cirko-74c69.appspot.com",
+    messagingSenderId: "382100265256",
+    appId: "1:382100265256:web:1920997e2f94dc5156d81d",
+    measurementId: "G-58D51K9P8H"
 };
 class Firebase {
     constructor() {
