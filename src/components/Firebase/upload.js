@@ -146,6 +146,7 @@ function likes(firebase, like_user_id, post_id) {
     var db = firebase.firestore();
     //update database
     db.collection("posts").doc(post_id).update({likes: firebase.firestore.FieldValue.arrayUnion(like_user_id)});
+    db.collection("users").doc(like_user_id).update({likes: firebase.firestore.FieldValue.arrayUnion(post_id)});
 }
 
 function get_user_profile(firebase,user_id, callback) {

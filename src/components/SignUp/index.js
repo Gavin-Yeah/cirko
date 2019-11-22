@@ -46,6 +46,7 @@ class SignUpFormBase extends Component {
                             following: [],
                             followers: [],
                             posts: [],
+                            likes: [],
                             posts_num: 0,
                             userId:authUser.user.uid,
                             username,
