@@ -2,16 +2,18 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import 'firebase/functions'
+
 
 const config = {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    databaseURL: process.env.REACT_APP_DATABASE_URL,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_APP_ID,
-    measurementId:process.env.REACT_APP_MEASUREMENT_ID
+    apiKey: "AIzaSyDCldN3MV9CCn8Pw-k2tJKJJC9UHBmVqu0",
+    authDomain: "cirko-74c69.firebaseapp.com",
+    databaseURL: "https://cirko-74c69.firebaseio.com",
+    projectId: "cirko-74c69",
+    storageBucket: "cirko-74c69.appspot.com",
+    messagingSenderId: "382100265256",
+    appId: "1:382100265256:web:1920997e2f94dc5156d81d",
+    measurementId: "G-58D51K9P8H"
 };
 class Firebase {
     constructor() {
@@ -21,7 +23,7 @@ class Firebase {
         this.googleProvider = new app.auth.GoogleAuthProvider();
         this.storage = app.storage();
         this.fieldValue = app.firestore.FieldValue;
-
+        this.functions = app.functions();
     }
 
     // *** Auth API ***
