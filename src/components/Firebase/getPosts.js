@@ -83,4 +83,4 @@ function help_get_all_post(firebase, callback) {
         });
     });
 }
-export { get_all_post_by_id, get_all_post }
+export { get_all_post_by_id, get_all_post, get_all_liked_posts }
