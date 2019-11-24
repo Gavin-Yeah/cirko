@@ -76,7 +76,7 @@ function follow(firebase, follower_id, followed_id) {
 //when user share a post and then you will need to save it to the database
 // passing a user obj? and a post object will be a better option.
 // post_id = user_id + "_post_" + posts_num.toString();!!! important
-function savePostToDB(firebase, user_id, username, posts_num, content,  pictures,location, callback) {
+function savePostToDB(firebase, user_id, username, posts_num, content,  pictures,location, place, callback) {
     //get the database reference
     var db = firebase.db;
     //generate post id
@@ -97,6 +97,7 @@ function savePostToDB(firebase, user_id, username, posts_num, content,  pictures
         pictures_url: [],
         comments: [],
 
+        place: place,
         likes: [],
         time: time
     });
@@ -138,11 +139,11 @@ function save_multiple_image(firebase, post_id, Images) {
 
 
 //comments
-function comments(firebase, comment_user_id, content, post_id,callback) {
+function comments(firebase, comment_user_id, comment_user_name,comment_user_avatar,content, post_id,callback) {
     //get the database reference
     var db = firebase.db;
     //create a comment object
-    var comment = {content: content, comment_user_id: comment_user_id, post_id: post_id};
+    var comment = {content: content, comment_user_id: comment_user_id,comment_user_name,comment_user_avatar, post_id: post_id};
     //update database
     // console.log( firebase.fieldValue.arrayUnion(comment))
     db.collection("posts").doc(post_id).update({comments: firebase.fieldValue.arrayUnion(comment)}).then(
@@ -154,10 +155,18 @@ function comments(firebase, comment_user_id, content, post_id,callback) {
 
 //like
 function likes(firebase, like_user_id, post_id) {
-    //get the database reference
-    var db = firebase.firestore();
-    //update database
-    db.collection("posts").doc(post_id).update({likes: firebase.FieldValue.arrayUnion(like_user_id)});
+    return new Promise((resolve,reject)=>{
+        //get the database reference
+        var db = firebase.db;
+        //update database
+        db.collection("posts").doc(post_id).update({likes: firebase.fieldValue.arrayUnion(like_user_id)}).then(()=>{resolve("sucecss")}).catch(err=>{
+            reject(err.toString())
+        });
+        db.collection("users").doc(like_user_id).update({likes: firebase.fieldValue.arrayUnion(post_id)}).then(()=>{resolve("sucecss")}).catch((err)=>{
+            reject(err.toString())
+        });
+    })
+
 }
 
 function get_user_profile(firebase,user_id, callback) {
@@ -178,4 +187,4 @@ function get_user_profile(firebase,user_id, callback) {
     });
 
 }
-export { updateImage, updateUserName, comments, follow, savePostToDB,get_user_profile}
+export { updateImage, updateUserName, comments, follow, savePostToDB,get_user_profile,likes}

@@ -1,5 +1,5 @@
 /* eslint no-dupe-keys: 0 */
-import { ListView, NavBar, Button, Flex, Toast, Slider, Icon, ImagePicker, InputItem } from 'antd-mobile';
+import { ListView, NavBar, Button, Flex, Toast, Slider, Icon, ImagePicker, InputItem, List, Switch } from 'antd-mobile';
 import React from 'react'
 
 
@@ -10,6 +10,7 @@ import { get_location } from "../../utils/getLocation";
 import { withAuthentication } from "../../Session";
 import ImageContainer from "../../ImageContainer";
 import NavBar1 from "../NavBar1";
+import { likes } from "../../Firebase/upload";
 // let data = [
 //     {
 //         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -71,16 +72,7 @@ class PostPage extends React.Component {
             currentImg:'',
             isImgClick:false,
             hasMore:false,
-            data:[{
-                pictures_url: [],
-        title: 'Eat the week',
-        des: '不是所有的兼职汪都需要风吹日晒',
-        time: '11/12/2019',
-        likes:5,
-        id:3,
-        comments:[],
-        location:'ha'
-    }]
+            data:[]
         };
     }
     genData =(pIndex = 0)=> {
@@ -91,23 +83,75 @@ class PostPage extends React.Component {
         }
         return dataBlob;
     }
+    renderItems = ()=>{
+        this.setState({
+            isLoading:true
+        })
+        get_location((location)=>{
+
+
+            const callback = (list)=>{
+                list.sort((a,b)=>{
+
+                    return Date.parse(a.time)>=Date.parse(b.time)?-1:1})
+                let fliter = this.props.firebase.functions.httpsCallable("fliter");
+
+                //console.log(this.state.location)
+               // console.log(list[1])
+                fliter([list,this.state.distance,location]).then( (result)=> {
+                    // Read result of the Cloud Function.
+
+                    result.data.sort((a,b)=>{
+
+                        return Date.parse(a.time)>=Date.parse(b.time)?-1:1})
+                    console.log(result.data)
+                  this.setState({
+                          data:result.data,
+                            isLoading:false
+                  }
+
+                  )
+                }).catch(function (error) {
+                    // Getting the Error details.
+                    var code = error.code;
+                    var message = error.message;
+                    var details = error.details;
+                    console.log("filtererr"+code);
+                    console.log(message);
+                    console.log(details);
+
+                });
+
+
+
+                this.setState({
+                    data:list
+                })
+
+            }
+
+
+
+
+
+            this.setState({
+                location:location
+            }, ()=> get_all_post(this.props.firebase,callback))
+
+
+
+
+
+        })
+    }
+
     componentDidMount() {
 
-        const callback = (list)=>{
-           this.setState({
-               data:list
-           })
-            setTimeout(() => {
-                this.rData = this.genData();
-                this.setState({
-                    dataSource: this.state.dataSource.cloneWithRows(this.rData),
-                    isLoading: false,
-                });
-            }, 1000);
-        }
+        this.renderItems();
+
         //console.log(a)
         
-        get_all_post(this.props.firebase,callback);
+
        // console.log(this.props.firebase.db.collection("posts").get())
         // you can scroll to the specified position
         // setTimeout(() => this.lv.scrollTo(0, 120), 800);
@@ -115,6 +159,11 @@ class PostPage extends React.Component {
         // simulate initial Ajax
 
     }
+
+    check = ()=>{
+        this.renderItems();
+
+}
 
     onEndReached = (event) => {
         // load new data
@@ -153,12 +202,20 @@ picClose=()=>{
 }
 
 slider =(e)=>{
-        console.log(e)
+      //  console.log(e)
       this.setState({
           distance:e
       })
 }
-likes = ()=>{
+likes = (postId)=>{
+
+    likes(this.props.firebase,this.props.firebase.auth.currentUser.uid,postId).then((result)=>{
+        console.log(result,postId);
+        this.renderItems()
+
+    }).catch(err=>{
+        console.log(err.toString())
+    });
 
 }
     render() {
@@ -195,8 +252,9 @@ likes = ()=>{
                             color: '#888',
                             fontSize: 15,
                             borderBottom: '1px solid #F6F6F6',
+                            background:'white'
                         }}
-                    >{obj.location}</div>
+                    >{obj.place}</div>
                     <div>
                         <Flex style={{  padding: '15px 0' }}>
                             <img style={{ height: '64px', marginRight: '15px' }} src={obj.userAvatar} alt="" />
@@ -244,44 +302,49 @@ likes = ()=>{
                <NavBar1 history={this.props.history}/>
 
                 <Flex style={{ background: "white",height:"8vh",position:'fixed',width:"100%", top:"3vh",zIndex:1}}>
-                    <Flex.Item style={{flex:'8'}}> <Slider
-                        style={{marginLeft:"20px",marginTop:'3vh'}}
-                    defaultValue={this.state.distance}
+                    <Flex.Item style={{flex:'8'}}>
+                        <Slider
+                        style={{marginLeft:"10px",marginTop:'3vh'}}
+                    defaultValue={this.state.distance*1}
                     min={0}
-                    max={50000}
+                    max={30000}
                     step={100}
                     value={this.state.distance}
                     onChange={(e)=>this.slider(e)}
-
                 />
 
                 </Flex.Item>
-                    <Flex.Item style={{flex:'2', marginTop:'3vh' ,fontSize:"20px"} }>
+                    <Flex.Item style={{flex:'3.5',marginTop:'3vh',marginRight:'-1vw',fontSize:"20px", background:'rgba(0,0,0,0)'} }>
                         <InputItem
                             type="number"
                             onChange={(e)=>{this.setState({distance:e})}}
                             value={this.state.distance}
                             extra="m"
-                        ></InputItem>
+                            style={{background:'#f7f7f7'}}
+                        />
                     </Flex.Item>
-                    <Flex.Item style={{flex:'1'}}>
-                       <Icon size='small' style={{borderRadius:'100%',background:"lightgrey",marginTop:'3vh', textAlign:'center',width:'30px' ,fontSize:"4vh"} }type={'check'} />
+                    <Flex.Item style={{flex:'1'}} >
+                       <Icon onClick={this.check} size='small' style={{borderRadius:'100%',background:"#fbfbfb",marginTop:'3vh', textAlign:'center',width:'30px' ,fontSize:"4vh"} }type={'check'} />
                     </Flex.Item>
                 </Flex>
-          <div>
+          <div >
               {
                   this.state.data.map((obj,index)=>{
                       return(
-                          <div key={index} style={{ padding: '0 15px' }}>
-                              {index==0?  <div style={{height:'10vh' ,background:'white'}}></div>:<div/> /*show the 1st post completely*/}
+                          <div key={index} style={{ padding: '0 15px', marginBottom:'10px', background:'white' }}>
+                              {index==0?  <div style={{height:'11vh'}}></div>:<div/> /*show the 1st post completely*/}
                               <div
                                   style={{
                                       lineHeight: '40px',
                                       color: '#888',
                                       fontSize: 15,
                                       borderBottom: '1px solid #F6F6F6',
+                                      background:'#ededed',
+
+
                                   }}
-                              >{obj.location.lat+" "+ obj.location.lng}</div>
+                              >{obj.place?<img style={{width:"5vw"}} src="https://image.flaticon.com/icons/png/128/149/149060.png" alt=""/>:""}{obj.place}</div>
+
                               <div>
                                   <Flex style={{  padding: '15px 0' }}>
                                       <img style={{ height: '64px', marginRight: '15px' }} src={obj.userAvatar} alt="" />
@@ -308,14 +371,15 @@ likes = ()=>{
                                           disableDelete={true}
                                           length={3}
 
+
                                       />
 
                                   </div>
                               </div>
 
                               <Flex>
-                                  <Flex.Item><Button size='small' style={{background:'#5396a5' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.postId)}>Comment</Button></Flex.Item>
-                                  <Flex.Item><Button size='small' style={{background:'#5396a5',color:"#ecfcee",fontWeight: 'bold'}} onClick={this.likes}>Likes {!!!obj.likes?'('+obj.likes.length+')':""}</Button></Flex.Item>
+                                  <Flex.Item><Button size='small' activeStyle={{background:'#4e77a1'}} style={{background:'#5396a5' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.postId)}>Comment({obj.comments.length})</Button></Flex.Item>
+                                  <Flex.Item><Button size='small' activeStyle={{background:'#4e77a1'}} style={{background:'#5396a5',color:"#ecfcee",fontWeight: 'bold'}} onClick={()=>this.likes(obj.postId)}>Likes {obj.likes!==0?'('+obj.likes.length+')':""}</Button></Flex.Item>
                               </Flex>
                           </div>
                       )

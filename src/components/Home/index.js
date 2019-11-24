@@ -12,6 +12,7 @@ import {Route, Link} from 'react-router-dom'
 import icon from '../icons/cirko-trans.png'
 import add from '../icons/add.png'
 import EditAvatar from "./Account/EditAvatar";
+import About from './Account/About'
 import {MYPOSTS} from "../../constants/routes";
 import MyPosts from './Account/MyPosts';
 import FavPosts from "./Account/FavPosts";
@@ -208,6 +209,7 @@ class HomePage extends React.Component {
                          <Route path={ROUTES.EDITNAME} component={EditName}/>
                          <Route path={ROUTES.MYPOSTS} component={MyPosts}/>
                          <Route path={ROUTES.FAVPOSTS} component={FavPosts}/>
+                         <Route path={ROUTES.ABOUT} component={About}/>
                      </TabBar.Item>
 
                 </TabBar>

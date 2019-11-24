@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../../../Firebase';
-import {List,Button,InputItem}from 'antd-mobile'
+import { List, Button, InputItem, WhiteSpace } from 'antd-mobile'
 const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',
@@ -49,7 +49,8 @@ class PasswordChangeForm extends Component {
                     type="password"
                     placeholder="Confirm New Password"
                 />
-                <Button disabled={isInvalid} type="submit" onClick={this.onSubmit}>
+                <WhiteSpace/> <WhiteSpace/>
+                <Button disabled={isInvalid} type="primary" onClick={this.onSubmit}>
                     Reset My Password
                 </Button>
                 {error && <p>{error.message}</p>}

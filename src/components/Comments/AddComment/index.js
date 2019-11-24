@@ -27,7 +27,8 @@ class AddComment extends Component {
         this.setState({ content: event });
     };
     onConfirm = ()=>{
-        comments(this.props.firebase, this.props.firebase.auth.currentUser.uid,this.state.content,this.state.postId,()=>{
+
+        comments(this.props.firebase, this.props.firebase.auth.currentUser.uid,this.props.firebase.auth.currentUser.displayName,this.props.firebase.auth.currentUser.photoURL,this.state.content,this.state.postId,()=>{
             this.props.history.goBack();
         });
 

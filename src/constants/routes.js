@@ -14,5 +14,6 @@ export const MYPOSTS = '/home/myposts';
 export const FAVPOSTS = '/home/favposts';
 export const CREATEPOST = '/home/createpost';
 export const FOLLOWING = '/home/following';
+export const ABOUT = '/home/about';
 
 

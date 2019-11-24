@@ -36,6 +36,9 @@ class AccountPage extends Component {
 
         })
     }
+    about = ()=>{
+        this.props.history.push(ROUTES.ABOUT);
+    }
     componentDidMount() {
         this.initPage();
     }
@@ -79,6 +82,8 @@ class AccountPage extends Component {
 
 
                         <PasswordChangeForm />
+                        <WhiteSpace/> <WhiteSpace/> <WhiteSpace/> <WhiteSpace/> <WhiteSpace/> <WhiteSpace/> <WhiteSpace/>
+                        <Button type={"primary"} onClick={this.about}>About</Button>
                         <WhiteSpace/> <WhiteSpace/> <WhiteSpace/> <WhiteSpace/> <WhiteSpace/> <WhiteSpace/> <WhiteSpace/>
 
                        <SignOutButton/>

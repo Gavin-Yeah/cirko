@@ -2,15 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd55fcb9-e49b-4ca8-b8c2-62db6a150df6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/cirko2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/About/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Home/Account/About/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/SignUp/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/icons/cirko2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/App/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Comments/AddComment/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/AddComment/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Comments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CreatePost/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreatePost/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/firebase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Firebase/getPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/getPosts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Firebase/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/EditAvatar/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/EditAvatar/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/EditName/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/EditName/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/FavPosts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/FavPosts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/MyPosts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/MyPosts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/PasswordChange/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/PasswordChange/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Account/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/PostPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/PostPage/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/utils/getLocation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/utils/getLocation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignUp/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/routes.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +48,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Firebase" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Home/Account/About" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -46,19 +58,19 @@
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/Home/Account/About" />
+      <recent name="$PROJECT_DIR$/src/components/icons" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/src/components/SignUp" />
+      <recent name="$PROJECT_DIR$/src/components/Firebase" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/components/" />
       <recent name="$PROJECT_DIR$/src/components/Home/Account" />
       <recent name="$PROJECT_DIR$/src/components/Home" />
       <recent name="$PROJECT_DIR$/src/components/Account" />
       <recent name="$PROJECT_DIR$/src/components" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/components/Firebase" />
-      <recent name="$PROJECT_DIR$/src/components/MyPosts" />
-      <recent name="$PROJECT_DIR$/src/components/FavPosts" />
-      <recent name="$PROJECT_DIR$/src/components/icons" />
-      <recent name="$PROJECT_DIR$/src/components/PostPage" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -110,7 +122,7 @@
       <workItem from="1574207223021" duration="5183000" />
       <workItem from="1574301052104" duration="1266000" />
       <workItem from="1574319958049" duration="1041000" />
-      <workItem from="1574363263519" duration="5457000" />
+      <workItem from="1574363263519" duration="34119000" />
     </task>
     <servers />
   </component>
@@ -129,5 +141,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/Comments/index.js</url>
+          <line>167</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

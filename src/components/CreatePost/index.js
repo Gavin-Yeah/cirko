@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {withAuthentication} from "../Session";
-import {NavBar, Button, Icon, List, TextareaItem, Flex,ImagePicker, WingBlank} from 'antd-mobile'
+import React, { Component } from 'react';
+import { withAuthentication } from "../Session";
+import { NavBar, Button, Icon, List, TextareaItem, Flex, ImagePicker, WingBlank, Switch } from 'antd-mobile'
 import add from "../icons/add.png";
 import { get_user_profile, savePostToDB } from "../Firebase/upload";
 import { get_location } from "../utils/getLocation";
@@ -8,22 +8,23 @@ import { get_location } from "../utils/getLocation";
 
 class CreatePost extends Component {
     state = {
-        content:'',
-        files:[],
-       location:'',
+        content: '',
+        files: [],
+        location: '',
+        isSwitched:false
 
 
     }
-    contentRef =  React.createRef();
-    add = ()=>{
-        let {addPost} = this.props
+    contentRef = React.createRef();
+    add = () => {
+        let { addPost } = this.props
         let content = this.contentRef.current.value;
-        const postObj = {id:4,userName:'Jack',time:'10:31 10/10/2019',content: content, pics:[], likes:0}
+        const postObj = { id: 4, userName: 'Jack', time: '10:31 10/10/2019', content: content, pics: [], likes: 0 }
         addPost(postObj)
         this.setState({
-            content:'',
-            pics:[],
-            multiple:true
+            content: '',
+            pics: [],
+            multiple: true
         })
 
     }
@@ -32,31 +33,51 @@ class CreatePost extends Component {
     onChange = event => {
         this.setState({ content: event });
     };
-    onConfirm = ()=>{
-    // get_location();
 
-        
+    onConfirm = () => {
+        get_location((location)=> {
 
-         get_location((pos)=>{
-             const firebase = this.props.firebase;
-             const uid = firebase.auth.currentUser.uid;
-             const username = firebase.auth.currentUser.displayName;
+            const firebase = this.props.firebase;
+            const uid = firebase.auth.currentUser.uid;
+            const username = firebase.auth.currentUser.displayName;
+            const callback = ({posts_num}) => {
+                console.log(location);
+                let geocodeLatLng = firebase.functions.httpsCallable("geocodeLatLng");
 
-             const callback = ({posts_num})=>{
-                 savePostToDB(firebase,uid,username,posts_num||0,this.state.content,this.state.files,pos,()=>{
-                     this.props.history.goBack();
-                 })
-             }
-              get_user_profile(firebase,uid,callback)
+                geocodeLatLng(location).then( (result)=> {
+                    // Read result of the Cloud Function.
+                    let place = null;
+                    if(this.state.isSwitched){
+                        place = result.data;
+                    }
+                    savePostToDB(firebase,uid,username,posts_num||0,this.state.content,this.state.files,location,place,() => {
+
+                        this.props.history.goBack();
+                    })
+
+                }).catch( (error) => {
+                    // Getting the Error details.
+                    var code = error.code;
+                    var message = error.message;
+                    var details = error.details;
+                    console.log(code);
+                    console.log(message);
+                    console.log(details);
+                    // ...
+                });
+
+
+            }
 
 
 
+                get_user_profile(firebase, uid, callback);
 
-         });
-        
-        
+        })
 
-    }
+
+
+        }
 
     onChangePic = (files, type, index) => {
         console.log(files, type, index);
@@ -78,31 +99,35 @@ class CreatePost extends Component {
     };
     render() {
 
-        const {onAddCanceledHandler} = this.props
-        let {content,files} = this.state
+        const { onAddCanceledHandler } = this.props
+        let { content, files } = this.state
         return (
             <div>
                 <NavBar
+
                     style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"7vh",position:'fixed',width:"100%", top:0,zIndex:1}}
+
                     mode="light"
                     leftContent={
-                        <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-20px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
+                        <div onClick={() => this.props.history.goBack()} style={{ width: '40px', marginTop: "-20px", marginLeft: '5px', color: 'White', fontSize: '40px', fontWeight: 'bold' }}> &lt;
                         </div>
                     }
 
 
                     rightContent={
+
                         <div onClick={this.onConfirm}  style={{width: '40px',marginTop:"-10px",}}><img src={add} style={{width:"40px"}} alt="add"/>
+
                         </div>
 
                     }
-                ><h1 style={{color:"white",}}>Post</h1>
+                ><h1 style={{ color: "white", }}>Post</h1>
 
                 </NavBar>
 
 
                 <List>
-                    <div style={{height:'70px' ,background:'white'}}></div>
+                    <div style={{ height: '70px', background: 'white' }}></div>
                     <TextareaItem
 
                         placeholder={"What's happening?"}
@@ -113,26 +138,33 @@ class CreatePost extends Component {
                         count={300}
                     />
                 </List>
-                <Flex>
-                    <Flex.Item>
-                        <Button  type="ghost" inline size="small" className="am-button-borderfix">
-                            <img src="https://image.flaticon.com/icons/png/128/149/149060.png" style={{width:'15px'}}  alt=""/>
-                            Your Position</Button>
-                    </Flex.Item>
-                    <Flex.Item></Flex.Item>
-                </Flex>
+                <div>
+
+                    <List.Item
+                        style={{background:"transparent"}}
+                        thumb={"https://image.flaticon.com/icons/png/128/149/149060.png"}
+                        extra={<Switch
+                            checked={this.state.isSwitched}
+                            onChange={()=>{this.setState({isSwitched:!this.state.isSwitched})}}
+                            platform="android"
+                            color={"#5396a5"}
+
+                        />}
+                    ><span style={{color:"#5396a5"}}>Your Position</span></List.Item>
+
+                </div>
                 <WingBlank>
 
                     <ImagePicker
                         files={files}
                         onChange={this.onChangePic}
                         onImageClick={(index, fs) => console.log(index, fs)}
-                        selectable={files.length < 7}
-                        multiple={this.state.multiple}
+                        selectable={files.length < 9}
+                        multiple={true}
                     />
                 </WingBlank>
 
-                </div>
+            </div>
 
         );
     }

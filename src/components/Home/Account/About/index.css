@@ -1,0 +1,30 @@
+.image {
+    width: 20vh;
+}
+.googleIcon{
+    width: 4vh;
+}
+.google{
+    margin-left: 1vw;
+}
+.icon1{
+
+    text-align: center;
+
+}
+.icon2{
+    height: 10vh;
+    text-align: center;
+}
+.appName{
+
+    color: #4e77a1;
+    font-size: 6vh;
+}
+.title{
+
+    text-align: center;
+}
+.iconContainer{
+    margin-top: 10vh;
+}

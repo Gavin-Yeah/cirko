@@ -2,8 +2,11 @@ import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/storage';
+import 'firebase/functions'
+
 
 const config = {
+
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
     databaseURL: process.env.REACT_APP_DATABASE_URL,
@@ -22,6 +25,7 @@ const config = {
     // appId: "1:272853644885:web:b4e5ba9dc2cbfe72ee86dc"
 
 
+
 };
 class Firebase {
     constructor() {
@@ -31,7 +35,7 @@ class Firebase {
         this.googleProvider = new app.auth.GoogleAuthProvider();
         this.storage = app.storage();
         this.fieldValue = app.firestore.FieldValue;
-
+        this.functions = app.functions();
     }
 
     // *** Auth API ***

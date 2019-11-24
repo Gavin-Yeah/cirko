@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { compose } from 'recompose';
-import { Button, InputItem } from 'antd-mobile'
+import { Button, Icon, InputItem, List, NavBar } from 'antd-mobile'
 import { withFirebase } from '../Firebase';
-const SignUpPage = () => (
-    <div>
-        <h1>SignUp</h1>
-        <SignUpForm />
-    </div>
-);
+import './index.css'
+
+
+class SignUpPage extends Component {
+    render() {
+        return (
+            <div>
+                <NavBar
+                    mode="light"
+                    icon={<Icon type="left" />}
+                    onLeftClick={() => {this.props.history.goBack()}}
+                >Sign Up</NavBar>
+                <div className={"icon1"}>
+                    <img className={"image"} src={require("../icons/cirko-trans.png")} alt=""/>
+                </div>
+                <div className={"icon2"}>
+                    <h2 className={"appName"}>CIRKO</h2>
+                </div>
+                <SignUpForm />
+            </div>
+        );
+    }
+}
+
 
 const INITIAL_STATE = {
     userId:'',
@@ -47,6 +65,7 @@ class SignUpFormBase extends Component {
                             followers: [],
                             posts: [],
                             posts_num: 0,
+                            likes:[],
                             userId:authUser.user.uid,
                             username,
                             email,
@@ -141,7 +160,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
     <Button>
-        Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+        Don't have an account? <NavLink to={ROUTES.SIGN_UP}>Sign Up</NavLink>
     </Button>
 );
 const SignUpForm = compose(

@@ -1,7 +1,9 @@
-import {  Flex, ListView, NavBar } from 'antd-mobile';
+import { Button, Flex, ImagePicker, ListView, NavBar } from 'antd-mobile';
 import React from "react";
 
 import add from "../icons/add.png";
+import { get_post } from "../Firebase/getPosts";
+import withAuthentication from "../Session/withAuthentication";
 
 const data = [
     {
@@ -43,7 +45,7 @@ function genData(pIndex = 0) {
     return dataBlob;
 }
 
-export default class Comments extends React.Component {
+ class Comments extends React.Component {
     constructor(props) {
         super(props);
 
@@ -61,21 +63,17 @@ export default class Comments extends React.Component {
             dataSource,
             isLoading: true,
             height: document.documentElement.clientHeight,
+            data:[]
         };
     }
 
     componentDidMount() {
-        // you can scroll to the specified position
-        // setTimeout(() => this.lv.scrollTo(0, 120), 800);
-
-        // simulate initial Ajax
-        setTimeout(() => {
-            this.rData = genData();
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(this.rData),
-                isLoading: false,
-            });
-        }, 600);
+       const callback = (data)=>{
+           this.setState({
+               data:data.comments
+           })
+        }
+        get_post(this.props.firebase, this.props.match.params.id,callback);
     }
 
     onEndReached = (event) => {
@@ -168,32 +166,47 @@ export default class Comments extends React.Component {
 
                     }
                 ><h1 style={{color:"white",}}>comments</h1></NavBar>
-                <ListView
-                    ref={el => this.lv = el}
-                    dataSource={this.state.dataSource}
+                <div>
+                    {
+                        this.state.data.map((obj,index)=>{
+                            return(
+                                <div key={index} style={{padding: '0 15px', marginBottom:'5px', background:'white'}}>
+                                    {index==0?  <div style={{height:'70px' ,background:'white'}}></div>:<div/> /*show the 1st post completely*/}
 
-                    renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
-                        {this.state.isLoading ? 'Loading...' : 'Loaded'}
-                    </div>)}
 
-                    renderRow={row}
-                    renderSeparator={separator}
+                                    <div>
+                                        <Flex style={{padding: '15px 0'}}>
+                                            <img style={{height: '64px', marginRight: '15px'}} src={obj.comment_user_avatar} alt=""/>
+                                            <div style={{lineHeight: 1}}>
 
-                    style={{
-                        height: this.state.height,
-                        overflow: 'auto',
-                    }}
-                    className="am-list"
-                    pageSize={4}
-                    onScroll={() => {
-                        console.log('scroll');
-                    }}
-                    scrollRenderAheadDistance={500}
-                    onEndReached={this.onEndReached}
-                    onEndReachedThreshold={10}
-                />
+                                                <div><span
+                                                    style={{fontSize: '20px', color: '#4e77a1', fontWeight: 'bold'}}>{obj.comment_user_name}</span>
+                                                </div>
+                                                <div style={{
+                                                    color: '#5396a5',
+                                                    fontSize: '18px',
+                                                    marginBottom: '8px',
+                                                    marginTop: '5px'
+                                                }}>{obj.time}</div>
+                                            </div>
+                                        </Flex>
+                                        <Flex>
+                                            <div style={{marginBottom: '8px', fontWeight: 'bold'}}>{obj.content}</div>
+                                        </Flex>
+                                    </div>
+                                    {/*<Flex>*/}
+
+                                    {/*    <Flex.Item><Button>Like</Button></Flex.Item>*/}
+                                    {/*</Flex>*/}
+                                </div>
+                            )
+                        })
+                    }
+
+                </div>
             </div>
 
         );
     }
 }
+export default withAuthentication(Comments);
