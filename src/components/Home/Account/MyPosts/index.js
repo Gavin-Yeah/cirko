@@ -1,4 +1,4 @@
-/* eslint no-dupe-keys: 0 */
+
 import { ListView, NavBar, Button, Flex, Icon, Toast, WingBlank, Carousel, Grid, ImagePicker } from 'antd-mobile';
 import React from 'react'
 
@@ -15,18 +15,11 @@ import ImageContainer from "../../../ImageContainer";
 class MyPosts extends React.Component {
     constructor(props) {
         super(props);
-        const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
-        const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
 
-        const dataSource = new ListView.DataSource({
-            getRowData,
-            getSectionHeaderData: getSectionData,
-            rowHasChanged: (row1, row2) => row1 !== row2,
-            sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-        });
+
 
         this.state = {
-            dataSource,
+
             isLoading: true,
             height: document.documentElement.clientHeight ,
             data: [],
@@ -55,29 +48,25 @@ class MyPosts extends React.Component {
     }
 
     componentDidMount() {
-
+        this.setState({
+            isLoading:true
+        })
         // you can scroll to the specified position
         // setTimeout(() => this.lv.scrollTo(0, 120), 800);
         const promise = get_all_post_by_id(this.props.firebase,this.props.firebase.auth.currentUser.uid)
-        promise.then((e)=>{
-
-
+        promise.then((res)=>{
                 this.setState({
-                    data:e
+                    data:res,
+                    isLoading:false
                 })
 
         })
-        //console.log(this.props.firebase.db.collection("users").doc(this.props.firebase.auth.currentUser.uid))
 
-        // simulate initial Ajax
 
     }
 
 
-    onClickComment =(id)=>{
 
-        this.props.history.push(`/home/comments/${id}`)
-    }
 
     render() {
         if(this.state.isLoading){
