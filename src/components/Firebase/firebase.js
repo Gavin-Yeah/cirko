@@ -15,15 +15,6 @@ const config = {
     messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
     appId: process.env.REACT_APP_APP_ID,
     measurementId:process.env.REACT_APP_MEASUREMENT_ID,
-    //
-    // apiKey: "AIzaSyD-wSi7Z6Jd0wc-H8FWTktn1zakUMx9VI0",
-    // authDomain: "tamplete-7864c.firebaseapp.com",
-    // databaseURL: "https://tamplete-7864c.firebaseio.com",
-    // projectId: "tamplete-7864c",
-    // storageBucket: "tamplete-7864c.appspot.com",
-    // messagingSenderId: "272853644885",
-    // appId: "1:272853644885:web:b4e5ba9dc2cbfe72ee86dc"
-
 
 
 };

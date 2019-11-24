@@ -155,7 +155,7 @@ function genData(pIndex = 0) {
                     style={{backgroundColor: '#5396a5', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"7vh",position:'fixed',width:"100%", top:0,zIndex:1}}
                     mode="light"
                     leftContent={
-                        <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-10px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
+                        <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-20px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
                     </div>
                         }
 

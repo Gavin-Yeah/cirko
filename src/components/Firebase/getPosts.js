@@ -1,21 +1,35 @@
-function get_all_post_by_id(firebase,user_id, callback){
-    get_all_post_id_from_db(firebase,user_id, callback);
-}
-
-function get_all_liked_posts(firebase, user_id, callback){
+async function get_all_post_by_id(firebase, user_id) {
+    //get db reference
     var db = firebase.db;
     var docRef = db.collection("users").doc(user_id);
     //get user
-    docRef.get().then(function(doc) {
-        if (doc.exists) {
-            console.log("Document data:");
-            get_posts_from_post_ID_list(firebase,doc.data().likes, callback);
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    });
+    let doc = await docRef.get();
+    if (doc.exists) {
+        return await get_posts_from_post_ID_list(firebase, doc.data().posts);
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
 }
+
+
+async function get_all_liked_posts(firebase, user_id) {
+
+
+    var db = firebase.db;
+    var docRef = db.collection("users").doc(user_id);
+    //get user
+    let doc = await docRef.get();
+    if (doc.exists) {
+        return await get_posts_from_post_ID_list(firebase, doc.data().likes);
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+
+}
+
+
 
 function get_all_post_id_from_db(firebase,user_id, callback){
     //get db reference
@@ -33,28 +47,32 @@ function get_all_post_id_from_db(firebase,user_id, callback){
     });
 }
 
-function get_posts_from_post_ID_list(firebase,pID_list, callback){
+async function get_posts_from_post_ID_list(firebase, pID_list) {
+    var list_posts = [];
+    for (var i = 0; i < pID_list.length; i++) {
+        let post = await get_post(firebase, pID_list[i]);
+        if(post){
+            list_posts.unshift(post);
+        }
 
-    for (var i=0;i<pID_list.length;i++)
-    {
-        get_post(firebase,pID_list[i], callback);
     }
+    return list_posts;
 }
 
-const get_post = (firebase,post_id,callback) => {
+async function get_post(firebase, post_id){
     //get db reference
     var db = firebase.db;
     var docRef = db.collection("posts").doc(post_id);
 
-    docRef.get().then(function(doc) {
-        if (doc.exists) {
-            console.log("Document data:");
-            callback(doc.data());
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    });
+    var doc = await docRef.get();
+    if (doc.exists) {
+        return(doc.data());
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+    return ;
+
 }
 function get_all_post(firebase, callback){
 

@@ -91,6 +91,7 @@ class PostPage extends React.Component {
 
 
             const callback = (list)=>{
+
                 list.sort((a,b)=>{
 
                     return Date.parse(a.time)>=Date.parse(b.time)?-1:1})
@@ -165,22 +166,7 @@ class PostPage extends React.Component {
 
 }
 
-    onEndReached = (event) => {
-        // load new data
-        // hasMore: from backend data, indicates whether it is the last page, here is false
-        if (this.state.isLoading && !this.state.hasMore) {
-            return;
-        }
-        console.log('reach end', event);
-        this.setState({ isLoading: true });
-        setTimeout(() => {
-            this.rData = { ...this.rData, ...this.genData(++pageIndex) };
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(this.rData),
-                isLoading: false,
-            });
-        }, 1000);
-    }
+
 
 onClickComment =(id)=>{
 
@@ -201,12 +187,6 @@ picClose=()=>{
         })
 }
 
-slider =(e)=>{
-      //  console.log(e)
-      this.setState({
-          distance:e
-      })
-}
 likes = (postId)=>{
 
     likes(this.props.firebase,this.props.firebase.auth.currentUser.uid,postId).then((result)=>{
@@ -218,23 +198,22 @@ likes = (postId)=>{
     });
 
 }
+
+
+    slider =(e)=>{
+        //  console.log(e)
+        this.setState({
+            distance:e
+        })
+    }
+
     render() {
         if(this.state.isLoading){
             Toast.loading('Loading...', 0.5, () => {
                 console.log('Load complete !!!');
             });
         }
-        const separator = (sectionID, rowID) => (
-            <div
-                key={`${sectionID}-${rowID}`}
-                style={{
-                    backgroundColor: '#F5F5F9',
-                    height: 8,
-                    borderTop: '1px solid #ECECED',
-                    borderBottom: '1px solid #ECECED',
-                }}
-            />
-        );
+
         let index = this.state.data.length - 1;
         const row = (rowData, sectionID, rowID) => {
             if (index < 0) {

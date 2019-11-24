@@ -10,6 +10,7 @@ import ImageContainer from "../../../ImageContainer";
 import { get_location } from "../../../utils/getLocation";
 import { get_all_liked_posts, get_all_post } from "../../../Firebase/getPosts";
 import withAuthentication from "../../../Session/withAuthentication";
+import { likes } from "../../../Firebase/upload";
 const data = [
     {
         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -65,9 +66,17 @@ class FavPosts extends React.Component {
             height: document.documentElement.clientHeight ,
             currentImg:'',
             isImgClick:false,
+            data:[]
         };
     }
 
+
+
+
+    onClickComment =(id)=>{
+
+        this.props.history.push(`/home/comments/${id}`)
+    }
 
     clickImg = (file)=>{
 
@@ -83,7 +92,17 @@ class FavPosts extends React.Component {
         })
     }
 
+    likes = (postId)=>{
 
+        likes(this.props.firebase,this.props.firebase.auth.currentUser.uid,postId).then((result)=>{
+            console.log(result,postId);
+            this.renderItems()
+
+        }).catch(err=>{
+            console.log(err.toString())
+        });
+
+    }
 
     componentDidMount() {
       this.renderItems();
@@ -95,19 +114,13 @@ class FavPosts extends React.Component {
             isLoading:true
         })
 
-            const callback = (list)=>{
-                    // Read result of the Cloud Function.
 
-
-                    // this.setState({
-                    //         data:list,
-                    //         isLoading:false
-                    //     }
-                    // )
-                console.log("123",list)
-            }
-        get_all_liked_posts(this.props.firebase,this.props.firebase.auth.currentUser.uid,callback);
-
+    let list =  get_all_liked_posts(this.props.firebase,this.props.firebase.auth.currentUser.uid);
+        list.then((e)=>{
+            this.setState({
+                data:e
+            })
+        })
     }
 
 
@@ -139,15 +152,16 @@ class FavPosts extends React.Component {
         return (
             <div >
                 <NavBar
-                    style={{backgroundColor: '#a6daba', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"70px",position:'fixed',width:"100%", top:0,zIndex:1}}
+                    style={{backgroundColor: '#a6daba', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"7vh",position:'fixed',width:"100%", top:0,zIndex:1}}
                     mode="light"
 
                     rightContent={
-                        <div onClick={()=>this.props.history.push(ROUTES.CREATEPOST)} style={{width: '40px',marginTop:"-20px",}}>
-                            <img src={add} style={{width:"50px"}} alt="add"/>
+                        <div onClick={()=>this.props.history.push(ROUTES.CREATEPOST)} style={{width: '40px',marginTop:"-10px",}}>
+                            <img src={add} style={{width:"40px"}} alt="add"/>
                         </div>
 
                     }
+
                     leftContent={
                         <div onClick={()=>  this.props.history.goBack()}  style={{width: '40px',marginTop:"-20px", marginLeft:'5px', color:'White', fontSize:'40px',fontWeight: 'bold'}}> &lt;
                         </div>
@@ -156,66 +170,66 @@ class FavPosts extends React.Component {
                 ><h1 style={{color:"white",}}>Favorite</h1>
                 </NavBar>
                 {this.state.isImgClick&&<ImageContainer currentImg={this.state.currentImg} picClose={this.picClose}/>}
-                {/*<div>*/}
-                {/*    {*/}
-                {/*        this.state.data.map((obj,index)=>{*/}
-                {/*            return(*/}
-                {/*                <div key={index} style={{ padding: '0 15px', marginBottom:'10px', background:'white' }}>*/}
-                {/*                    {index==0?  <div style={{height:'11vh'}}></div>:<div/> /*show the 1st post completely*!/*/}
-                {/*                    <div*/}
-                {/*                        style={{*/}
-                {/*                            lineHeight: '40px',*/}
-                {/*                            color: '#888',*/}
-                {/*                            fontSize: 15,*/}
-                {/*                            borderBottom: '1px solid #F6F6F6',*/}
-                {/*                            background:'#ededed',*/}
-                
-                
-                {/*                        }}*/}
-                {/*                    >{obj.place?<img style={{width:"5vw"}} src="https://image.flaticon.com/icons/png/128/149/149060.png" alt=""/>:""}{obj.place}</div>*/}
-                
-                {/*                    <div>*/}
-                {/*                        <Flex style={{  padding: '15px 0' }}>*/}
-                {/*                            <img style={{ height: '64px', marginRight: '15px' }} src={obj.userAvatar} alt="" />*/}
-                {/*                            <div style={{ lineHeight: 1 }}>*/}
-                
-                {/*                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.username}</span></div>*/}
-                {/*                                <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>*/}
-                {/*                            </div>*/}
-                {/*                        </Flex>*/}
-                {/*                        <Flex>*/}
-                {/*                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.content}</div>*/}
-                {/*                        </Flex>*/}
-                {/*                        <div>*/}
-                {/*                            <ImagePicker*/}
-                {/*                                files={obj.pictures_url.map((item)=>{*/}
-                {/*                                    return {url:item}*/}
-                {/*                                })}*/}
-                
-                {/*                                onChange={this.onChange}*/}
-                {/*                                onImageClick={(index, fs) => {*/}
-                {/*                                    this.clickImg(fs[index]);*/}
-                {/*                                }}*/}
-                {/*                                selectable={false}*/}
-                {/*                                disableDelete={true}*/}
-                {/*                                length={3}*/}
-                
-                
-                {/*                            />*/}
-                
-                {/*                        </div>*/}
-                {/*                    </div>*/}
-                
-                {/*                    <Flex>*/}
-                {/*                        <Flex.Item><Button size='small' activeStyle={{background:'#4e77a1'}}  style={{background:'#5396a5' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.postId)}>Comment</Button></Flex.Item>*/}
-                {/*                        <Flex.Item><Button size='small' activeStyle={{background:'#4e77a1'}}  style={{background:'#5396a5',color:"#ecfcee",fontWeight: 'bold'}} onClick={this.likes}>Likes {!!!obj.likes?'('+obj.likes.length+')':""}</Button></Flex.Item>*/}
-                {/*                    </Flex>*/}
-                {/*                </div>*/}
-                {/*            )*/}
-                {/*        })*/}
-                {/*    }*/}
-                
-                {/*</div>*/}
+                <div >
+                    {
+                        this.state.data.map((obj,index)=>{
+                            return(
+                                <div key={index} style={{ padding: '0 15px', marginBottom:'10px', background:'white' }}>
+                                    {index==0?  <div style={{height:'11vh'}}></div>:<div/> /*show the 1st post completely*/}
+                                    <div
+                                        style={{
+                                            lineHeight: '40px',
+                                            color: '#888',
+                                            fontSize: 15,
+                                            borderBottom: '1px solid #F6F6F6',
+                                            background:'#ededed',
+
+
+                                        }}
+                                    >{obj.place?<img style={{width:"5vw"}} src="https://image.flaticon.com/icons/png/128/149/149060.png" alt=""/>:""}{obj.place}</div>
+
+                                    <div>
+                                        <Flex style={{  padding: '15px 0' }}>
+                                            <img style={{ height: '64px', marginRight: '15px' }} src={obj.userAvatar} alt="" />
+                                            <div style={{ lineHeight: 1 }}>
+
+                                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.username}</span></div>
+                                                <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
+                                            </div>
+                                        </Flex>
+                                        <Flex>
+                                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.content}</div>
+                                        </Flex>
+                                        <div>
+                                            <ImagePicker
+                                                files={obj.pictures_url.map((item)=>{
+                                                    return {url:item}
+                                                })}
+
+                                                onChange={this.onChange}
+                                                onImageClick={(index, fs) => {
+                                                    this.clickImg(fs[index]);
+                                                }}
+                                                selectable={false}
+                                                disableDelete={true}
+                                                length={3}
+
+
+                                            />
+
+                                        </div>
+                                    </div>
+
+                                    <Flex>
+                                        <Flex.Item><Button size='small' activeStyle={{background:'#7fc4a7'}} style={{background:'#a6daba' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.postId)}>Comment({obj.comments.length})</Button></Flex.Item>
+                                        <Flex.Item><Button size='small' activeStyle={{background:'#7fc4a7'}} style={{background:'#a6daba',color:"#ecfcee",fontWeight: 'bold'}} onClick={()=>this.likes(obj.postId)}>Likes {obj.likes!==0?'('+obj.likes.length+')':""}</Button></Flex.Item>
+                                    </Flex>
+                                </div>
+                            )
+                        })
+                    }
+
+                </div>
             </div>
         );
     }

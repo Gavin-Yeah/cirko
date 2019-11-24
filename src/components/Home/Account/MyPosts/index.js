@@ -9,74 +9,8 @@ import add from '../../../icons/add.png'
 import { get_all_post_by_id } from "../../../Firebase/getPosts";
 import withAuthentication from "../../../Session/withAuthentication";
 import ImageContainer from "../../../ImageContainer";
-let data = [
-    {
-        img: [{
-            url: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-            id: 11,
-        }, {
-            url: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-            id: 12
-        },
-            {
-                url: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-                id: 15
-            }
-        ],
-            title: 'Meet hotel',
-        des: '不是所有的兼职汪都需要风吹日晒',
-        id:1,
-    },
-    {
-        img: [{
-            url: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-            id: 11,
-        }, {
-            url: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-            id: 12
-        },
-            {
-                url: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-                id: 15
-            }
-        ],
-        title: 'McDonald\'s invites you',
-        des: '不是所有的兼职汪都需要风吹日晒',
-        id:2,
-    },
-    {
-        img: [{
-            url: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-            id: 11,
-        }, {
-            url: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-            id: 12
-        },
-            {
-                url: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-                id: 15
-            }
-        ],
-        title: 'Eat the week',
-        des: '不是所有的兼职汪都需要风吹日晒',
-        id:3,
-    },
-];
-const NUM_SECTIONS = 5;
-const NUM_ROWS_PER_SECTION = 5;
-let pageIndex = 0;
-const NUM_ROWS = 20;
-const dataBlobs = {};
-let sectionIDs = [];
-let rowIDs = [];
-function genData(pIndex = 0) {
-    const dataBlob = {};
-    for (let i = 0; i < NUM_ROWS; i++) {
-        const ii = (pIndex * NUM_ROWS) + i;
-        dataBlob[`${ii}`] = `row - ${ii}`;
-    }
-    return dataBlob;
-}
+
+
 
 class MyPosts extends React.Component {
     constructor(props) {
@@ -101,6 +35,10 @@ class MyPosts extends React.Component {
             isImgClick:false,
         };
     }
+    onClickComment =(id)=>{
+
+        this.props.history.push(`/home/comments/${id}`)
+    }
 
     clickImg = (file)=>{
 
@@ -116,15 +54,18 @@ class MyPosts extends React.Component {
         })
     }
 
-
-
     componentDidMount() {
-        data=[];
+
         // you can scroll to the specified position
         // setTimeout(() => this.lv.scrollTo(0, 120), 800);
-        get_all_post_by_id(this.props.firebase,this.props.firebase.auth.currentUser.uid,(i)=>{
-            data.push(i);
-            console.log(i);
+        const promise = get_all_post_by_id(this.props.firebase,this.props.firebase.auth.currentUser.uid)
+        promise.then((e)=>{
+
+
+                this.setState({
+                    data:e
+                })
+
         })
         //console.log(this.props.firebase.db.collection("users").doc(this.props.firebase.auth.currentUser.uid))
 
@@ -144,22 +85,12 @@ class MyPosts extends React.Component {
                 console.log('Load complete !!!');
             });
         }
-        const separator = (sectionID, rowID) => (
-            <div
-                key={`${sectionID}-${rowID}`}
-                style={{
-                    backgroundColor: '#F5F5F9',
-                    height: 8,
-                    borderTop: '1px solid #ECECED',
-                    borderBottom: '1px solid #ECECED',
-                }}
-            />
-        );
 
 
         return (
             <div >
                 <NavBar
+
                     style={{backgroundColor: '#a6daba', borderBottomLeftRadius:'100%', borderBottomRightRadius:'100%',  height:"7vh",position:'fixed',width:"100%", top:0,zIndex:1}}
                     mode="light"
 
@@ -174,12 +105,12 @@ class MyPosts extends React.Component {
                         </div>
                     }
 
-                ><h1 style={{color:"white",}}>Favorite</h1>
+                ><h1 style={{color:"white",}}>My Posts</h1>
                 </NavBar>
 
                 {this.state.isImgClick&&<ImageContainer currentImg={this.state.currentImg} picClose={this.picClose}/>}
 
-                <div>
+                <div >
                     {
                         this.state.data.map((obj,index)=>{
                             return(
@@ -230,8 +161,7 @@ class MyPosts extends React.Component {
                                     </div>
 
                                     <Flex>
-                                        <Flex.Item><Button size='small' activeStyle={{background:'#4e77a1'}}  style={{background:'#5396a5' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.postId)}>Comment</Button></Flex.Item>
-                                        <Flex.Item><Button size='small' activeStyle={{background:'#4e77a1'}}  style={{background:'#5396a5',color:"#ecfcee",fontWeight: 'bold'}} onClick={this.likes}>Likes {!!!obj.likes?'('+obj.likes.length+')':""}</Button></Flex.Item>
+                                        <Flex.Item><Button size='small' activeStyle={{background:'#7fc4a7'}} style={{background:'#a6daba' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.postId)}>Comment({obj.comments.length})</Button></Flex.Item>
                                     </Flex>
                                 </div>
                             )
