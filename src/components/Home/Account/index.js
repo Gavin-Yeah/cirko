@@ -40,9 +40,13 @@ class AccountPage extends Component {
         this.props.history.push(ROUTES.ABOUT);
     }
     componentDidMount() {
-        this.initPage();
+        this.timeout1= setTimeout(
+            this.initPage(),100
+        );
     }
-
+    componentWillUnmount() {
+        clearTimeout(this.timeout1)
+    }
 
 
     render() {

@@ -84,7 +84,7 @@ function savePostToDB(firebase, user_id, username, posts_num, content,  pictures
     posts_num = posts_num*1 + 1;
     //generate time
     var myDate = new Date();
-    var time = myDate.toLocaleString();
+    var time = myDate.toString();
 
     //store post into post db
     db.collection("posts").doc(post_id).set({

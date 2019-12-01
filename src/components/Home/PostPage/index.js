@@ -1,5 +1,18 @@
 /* eslint no-dupe-keys: 0 */
-import { ListView, NavBar, Button, Flex, Toast, Slider, Icon, ImagePicker, InputItem, List, Switch } from 'antd-mobile';
+import {
+    ListView,
+    NavBar,
+    Button,
+    Flex,
+    Toast,
+    Slider,
+    Icon,
+    ImagePicker,
+    InputItem,
+    List,
+    Switch,
+    WingBlank, Carousel
+} from 'antd-mobile';
 import React from 'react'
 
 
@@ -11,6 +24,7 @@ import { withAuthentication } from "../../Session";
 import ImageContainer from "../../ImageContainer";
 import NavBar1 from "../NavBar1";
 import { likes } from "../../Firebase/upload";
+import Ads from "./Ads";
 // let data = [
 //     {
 //         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
@@ -72,7 +86,9 @@ class PostPage extends React.Component {
             currentImg:'',
             isImgClick:false,
             hasMore:false,
-            data:[]
+            data:[],
+
+
         };
     }
     genData =(pIndex = 0)=> {
@@ -103,7 +119,8 @@ class PostPage extends React.Component {
                     // Read result of the Cloud Function.
 
                     result.data.sort((a,b)=>{
-
+                        console.log(a)
+                        console.log(b)
                         return Date.parse(a.time)>=Date.parse(b.time)?-1:1})
                     console.log(result.data)
                   this.setState({
@@ -149,6 +166,8 @@ class PostPage extends React.Component {
     componentDidMount() {
 
         this.renderItems();
+
+
 
         //console.log(a)
         
@@ -206,6 +225,10 @@ likes = (postId)=>{
             distance:e
         })
     }
+    a = (time)=>{
+        let date = new Date(time);
+        return date.toLocaleString();
+    };
 
     render() {
         if(this.state.isLoading){
@@ -214,64 +237,6 @@ likes = (postId)=>{
             });
         }
 
-        let index = this.state.data.length - 1;
-        const row = (rowData, sectionID, rowID) => {
-            if (index < 0) {
-                index = this.state.data.length - 1;
-            }
-            const obj = this.state.data[index--];
-            return (
-
-
-                <div key={rowID} style={{ padding: '0 15px' }}>
-                    {rowID==0?  <div style={{height:'10vh' ,background:'white'}}></div>:<div/> /*show the 1st post completely*/}
-                    <div
-                        style={{
-                            lineHeight: '40px',
-                            color: '#888',
-                            fontSize: 15,
-                            borderBottom: '1px solid #F6F6F6',
-                            background:'white'
-                        }}
-                    >{obj.place}</div>
-                    <div>
-                        <Flex style={{  padding: '15px 0' }}>
-                            <img style={{ height: '64px', marginRight: '15px' }} src={obj.userAvatar} alt="" />
-                            <div style={{ lineHeight: 1 }}>
-
-                                <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.username}</span></div>
-                                <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
-                            </div>
-                        </Flex>
-                        <Flex>
-                            <div style={{ marginBottom: '8px', fontWeight: 'bold' }}>{obj.content}</div>
-                        </Flex>
-                        <div>
-                            <ImagePicker
-                                files={obj.pictures_url.map((item)=>{
-                                    return {url:item}
-                                })}
-
-                                onChange={this.onChange}
-                                onImageClick={(index, fs) => {
-                                    this.clickImg(fs[index]);
-                                }}
-                                selectable={false}
-                                disableDelete={true}
-                                length={3}
-
-                            />
-
-                        </div>
-                    </div>
-
-                   <Flex>
-                       <Flex.Item><Button size='small' style={{background:'#5396a5' ,color:"#ecfcee",fontWeight: 'bold'}} onClick={()=> this.onClickComment(obj.postId)}>Comment</Button></Flex.Item>
-                   <Flex.Item><Button size='small' style={{background:'#5396a5',color:"#ecfcee",fontWeight: 'bold'}} onClick={this.likes}>Likes {!!!obj.likes?'('+obj.likes+')':""}</Button></Flex.Item>
-                   </Flex>
-                </div>
-            );
-        };
 
 
 
@@ -306,12 +271,16 @@ likes = (postId)=>{
                        <Icon onClick={this.check} size='small' style={{borderRadius:'100%',background:"#fbfbfb",marginTop:'3vh', textAlign:'center',width:'30px' ,fontSize:"4vh"} }type={'check'} />
                     </Flex.Item>
                 </Flex>
+                <Ads ads={this.state.ads}/>
+
           <div >
+
+
               {
+
                   this.state.data.map((obj,index)=>{
                       return(
                           <div key={index} style={{ padding: '0 15px', marginBottom:'10px', background:'white' }}>
-                              {index==0?  <div style={{height:'11vh'}}></div>:<div/> /*show the 1st post completely*/}
                               <div
                                   style={{
                                       lineHeight: '40px',
@@ -330,7 +299,7 @@ likes = (postId)=>{
                                       <div style={{ lineHeight: 1 }}>
 
                                           <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.username}</span></div>
-                                          <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
+                                          <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{(new Date(obj.time)).toLocaleString()}</div>
                                       </div>
                                   </Flex>
                                   <Flex>

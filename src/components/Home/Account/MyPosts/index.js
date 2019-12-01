@@ -123,7 +123,7 @@ class MyPosts extends React.Component {
                                             <div style={{ lineHeight: 1 }}>
 
                                                 <div><span style={{  fontSize: '20px',color: '#4e77a1',fontWeight: 'bold' }}>{obj.username}</span></div>
-                                                <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{obj.time}</div>
+                                                <div style={{ color: '#5396a5',fontSize: '18px',marginBottom: '8px',marginTop: '5px'  }}>{(new Date(obj.time)).toLocaleString()}</div>
                                             </div>
                                         </Flex>
                                         <Flex>

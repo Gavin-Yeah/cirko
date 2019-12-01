@@ -68,12 +68,13 @@ function genData(pIndex = 0) {
     }
 
     componentDidMount() {
-       const callback = (data)=>{
-           this.setState({
-               data:data.comments
-           })
-        }
-        get_post(this.props.firebase, this.props.match.params.id,callback);
+
+        get_post(this.props.firebase, this.props.match.params.id).then((data)=>{
+            this.setState({
+                data:data.comments
+            })
+          //  console.log(data.comments)
+        });
     }
 
     onEndReached = (event) => {
