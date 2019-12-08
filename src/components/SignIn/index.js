@@ -5,10 +5,9 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 import { SignUpLink } from '../SignUp';
-import { PasswordForgetLink } from '../PasswordForget';
 import "./index.css"
-import { Flex, WhiteSpace, InputItem, Button , List} from 'antd-mobile';
-import * as firebaseui from 'firebaseui'
+import { Button, InputItem, List, WhiteSpace } from 'antd-mobile';
+
 const SignInPage = () => (
     <div>
       <div className={"icon1"}>

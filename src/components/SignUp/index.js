@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { compose } from 'recompose';
-import { Button, Icon, InputItem, List, NavBar } from 'antd-mobile'
+import { Button, Icon, InputItem, NavBar } from 'antd-mobile'
 import { withFirebase } from '../Firebase';
 import './index.css'
 

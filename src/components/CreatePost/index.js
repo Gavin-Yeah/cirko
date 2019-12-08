@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withAuthentication } from "../Session";
-import { NavBar, Button, Icon, List, TextareaItem, Flex, ImagePicker, WingBlank, Switch } from 'antd-mobile'
+import { ImagePicker, List, NavBar, Switch, TextareaItem, WingBlank } from 'antd-mobile'
 import add from "../icons/add.png";
 import { get_user_profile, savePostToDB } from "../Firebase/upload";
 import { get_location } from "../utils/getLocation";

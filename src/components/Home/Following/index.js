@@ -1,11 +1,8 @@
 /* eslint no-dupe-keys: 0 */
-import { ListView, NavBar, Button, Flex, ImagePicker } from 'antd-mobile';
+import { Button, Flex, ImagePicker, ListView } from 'antd-mobile';
 import React from 'react'
-
-
-import * as ROUTES from "../../../constants/routes";
-import add from "../../icons/add.png";
 import NavBar1 from "../NavBar1";
+
 const data = [
     {
         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',

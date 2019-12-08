@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Comment from "./Comment";
-import Item from '../Item'
-import {withAuthorization} from "../Session";
+import { withAuthorization } from "../Session";
+
 class Comments extends Component {
     state={
         comments:[{id:1,userName:'Nick',time:'10:30 10/10/2019',content:"abc", likes:5}],

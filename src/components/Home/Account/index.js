@@ -1,16 +1,12 @@
-
 import PasswordChangeForm from './PasswordChange';
-import { AuthUserContext, withAuthorization } from '../../Session';//import authorization
-import { Flex, List, WhiteSpace, NavBar, Icon, Button, Slider } from 'antd-mobile'
-import {NavLink} from "react-router-dom";
-import React, {Component} from 'react';
+import { Button, Flex, List, WhiteSpace } from 'antd-mobile'
+import React, { Component } from 'react';
 import './index.css'
 import SignOutButton from "./SignOut";
 import * as ROUTES from "../../../constants/routes";
-import EditAvatar from "./EditAvatar";
-import add from "../../icons/add.png";
 import NavBar1 from "../NavBar1";
 import withAuthentication from "../../Session/withAuthentication";
+
 const avat=  "https://image.flaticon.com/icons/png/128/149/149071.png";
 class AccountPage extends Component {
     state = {
@@ -28,7 +24,7 @@ class AccountPage extends Component {
     initPage = ()=>{
         const avatarUrl = this.props.firebase.auth.currentUser.photoURL;
         const userName = this.props.firebase.auth.currentUser.displayName;
-        console.log(userName)
+
         this.setState({
             avatarUrl,
             userName

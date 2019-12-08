@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../../../Firebase';
-import { List, Button, InputItem, WhiteSpace } from 'antd-mobile'
+import { Button, InputItem, List, WhiteSpace } from 'antd-mobile'
+
 const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',

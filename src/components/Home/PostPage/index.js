@@ -1,65 +1,13 @@
 /* eslint no-dupe-keys: 0 */
-import {
-    ListView,
-    NavBar,
-    Button,
-    Flex,
-    Toast,
-    Slider,
-    Icon,
-    ImagePicker,
-    InputItem,
-    List,
-    Switch,
-    WingBlank, Carousel
-} from 'antd-mobile';
+import { Button, Flex, Icon, ImagePicker, InputItem, ListView, Slider, Toast, } from 'antd-mobile';
 import React from 'react'
-
-
-import * as ROUTES from "../../../constants/routes";
-import add from "../../icons/add.png";
-import { get_all_post, get_all_post_by_uid } from "../../Firebase/getPosts";
+import { get_all_post } from "../../Firebase/getPosts";
 import { get_location } from "../../utils/getLocation";
 import { withAuthentication } from "../../Session";
 import ImageContainer from "../../ImageContainer";
 import NavBar1 from "../NavBar1";
 import { likes } from "../../Firebase/upload";
 import Ads from "./Ads";
-// let data = [
-//     {
-//         img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-//         title: 'Meet hotel',
-//         des: '不是所有的兼职汪都需要风吹日晒',
-//         time: '11/12/2019',
-//         likes:5,
-//         id:1,
-//         comments:[],
-//         location:''
-//     },
-//     {
-//         img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-//         title: 'McDonald\'s invites you',
-//         des: '不是所有的兼职汪都需要风吹日晒',
-//         time: '11/12/2019',
-//         likes:5,
-//         id:2,
-//         comments:[],
-//         location:'New Zealand'
-//     },
-//     {
-//         img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-//         title: 'Eat the week',
-//         des: '不是所有的兼职汪都需要风吹日晒',
-//         time: '11/12/2019',
-//         likes:5,
-//         id:3,
-//         comments:[],
-//         location:''
-//     },
-// ];
-
-let pageIndex = 0;
-
 
 
 
@@ -91,15 +39,9 @@ class PostPage extends React.Component {
 
         };
     }
-    genData =(pIndex = 0)=> {
-        const dataBlob = {};
-        for (let i = 0; i < this.state.data.length; i++) {
-            const ii = (pIndex *  this.state.data.length) + i;
-            dataBlob[`${ii}`] = `row - ${ii}`;
-        }
-        return dataBlob;
-    }
+
     renderItems = ()=>{
+
         this.setState({
             isLoading:true
         })
@@ -119,10 +61,10 @@ class PostPage extends React.Component {
                     // Read result of the Cloud Function.
 
                     result.data.sort((a,b)=>{
-                        console.log(a)
-                        console.log(b)
+                        // console.log(a)
+                        // console.log(b)
                         return Date.parse(a.time)>=Date.parse(b.time)?-1:1})
-                    console.log(result.data)
+                    // console.log(result.data)
                   this.setState({
                           data:result.data,
                             isLoading:false
@@ -142,9 +84,7 @@ class PostPage extends React.Component {
 
 
 
-                this.setState({
-                    data:list
-                })
+
 
             }
 
@@ -181,6 +121,7 @@ class PostPage extends React.Component {
     }
 
     check = ()=>{
+
         this.renderItems();
 
 }
@@ -200,7 +141,7 @@ this.setState({
 })
 }
 picClose=()=>{
-        console.log("picCLose")
+
         this.setState({
             isImgClick:false
         })
@@ -209,7 +150,7 @@ picClose=()=>{
 likes = (postId)=>{
 
     likes(this.props.firebase,this.props.firebase.auth.currentUser.uid,postId).then((result)=>{
-        console.log(result,postId);
+        // console.log(result,postId);
         this.renderItems()
 
     }).catch(err=>{
@@ -233,7 +174,7 @@ likes = (postId)=>{
     render() {
         if(this.state.isLoading){
             Toast.loading('Loading...', 0.5, () => {
-                console.log('Load complete !!!');
+                // console.log('Load complete !!!');
             });
         }
 
@@ -246,9 +187,9 @@ likes = (postId)=>{
                <NavBar1 history={this.props.history}/>
 
                 <Flex style={{ background: "white",height:"8vh",position:'fixed',width:"100%", top:"3vh",zIndex:1}}>
-                    <Flex.Item style={{flex:'8'}}>
+                    <Flex.Item style={{flex:'7.5'}}>
                         <Slider
-                        style={{marginLeft:"10px",marginTop:'3vh'}}
+                        style={{marginLeft:"20px",marginTop:'3vh'}}
                     defaultValue={this.state.distance*1}
                     min={0}
                     max={30000}
@@ -291,7 +232,19 @@ likes = (postId)=>{
 
 
                                   }}
-                              >{obj.place?<img style={{width:"5vw"}} src="https://image.flaticon.com/icons/png/128/149/149060.png" alt=""/>:""}{obj.place}</div>
+                              >
+                              {/*    {obj.place?<List.Item*/}
+                              {/*    thumb="https://image.flaticon.com/icons/png/128/149/149060.png"*/}
+
+
+                              {/*><a zhref={"http://maps.google.com/?q="+obj.place} target={"_blank"}>{obj.place}</a></List.Item>:""}*/}
+
+
+                                  {obj.place?<img style={{width:"5vw"}} src="https://image.flaticon.com/icons/png/128/149/149060.png" alt=""/>:""}<a
+                                  href={"http://maps.google.com/?q="+obj.place} target={"_blank"}>{obj.place}</a>
+
+
+                              </div>
 
                               <div>
                                   <Flex style={{  padding: '15px 0' }}>

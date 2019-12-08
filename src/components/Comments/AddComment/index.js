@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {NavBar, Button, Icon, List, TextareaItem, Flex,ImagePicker, WingBlank} from 'antd-mobile'
+import { Icon, List, NavBar, TextareaItem } from 'antd-mobile'
 import { comments } from "../../Firebase/upload";
 import withAuthentication from "../../Session/withAuthentication";
 

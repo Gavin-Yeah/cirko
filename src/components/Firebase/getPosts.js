@@ -86,7 +86,7 @@ function get_all_post(firebase, callback){
 
     });
     promise.then((data)=>{
-        console.log(data)
+        // console.log(data)
         callback(data);
     })
 

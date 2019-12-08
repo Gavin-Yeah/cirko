@@ -1,5 +1,5 @@
 /* eslint no-dupe-keys: 0 */
-import { ListView, NavBar, Button, Flex, Icon, Toast, ImagePicker } from 'antd-mobile';
+import { Button, Flex, ImagePicker, ListView, NavBar, Toast } from 'antd-mobile';
 import React from 'react'
 
 
@@ -7,45 +7,11 @@ import * as ROUTES from "../../../../constants/routes";
 
 import add from '../../../icons/add.png'
 import ImageContainer from "../../../ImageContainer";
-import { get_location } from "../../../utils/getLocation";
-import { get_all_liked_posts, get_all_post } from "../../../Firebase/getPosts";
+import { get_all_liked_posts } from "../../../Firebase/getPosts";
 import withAuthentication from "../../../Session/withAuthentication";
 import { likes } from "../../../Firebase/upload";
-const data = [
-    {
-        img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-        title: 'Meet hotel',
-        des: '不是所有的兼职汪都需要风吹日晒',
-        id:1,
-    },
-    {
-        img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-        title: 'McDonald\'s invites you',
-        des: '不是所有的兼职汪都需要风吹日晒',
-        id:2,
-    },
-    {
-        img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-        title: 'Eat the week',
-        des: '不是所有的兼职汪都需要风吹日晒',
-        id:3,
-    },
-];
-const NUM_SECTIONS = 5;
-const NUM_ROWS_PER_SECTION = 5;
-let pageIndex = 0;
-const NUM_ROWS = 20;
-const dataBlobs = {};
-let sectionIDs = [];
-let rowIDs = [];
-function genData(pIndex = 0) {
-    const dataBlob = {};
-    for (let i = 0; i < NUM_ROWS; i++) {
-        const ii = (pIndex * NUM_ROWS) + i;
-        dataBlob[`${ii}`] = `row - ${ii}`;
-    }
-    return dataBlob;
-}
+
+
 
 class FavPosts extends React.Component {
     constructor(props) {
@@ -124,10 +90,6 @@ class FavPosts extends React.Component {
     }
 
 
-    onClickComment =(id)=>{
-
-        this.props.history.push(`/home/comments/${id}`)
-    }
 
 
     render() {
@@ -186,7 +148,11 @@ class FavPosts extends React.Component {
 
 
                                         }}
-                                    >{obj.place?<img style={{width:"5vw"}} src="https://image.flaticon.com/icons/png/128/149/149060.png" alt=""/>:""}{obj.place}</div>
+                                    >
+                                        {obj.place?<img style={{width:"5vw"}} src="https://image.flaticon.com/icons/png/128/149/149060.png" alt=""/>:""}<a
+                                        href={"http://maps.google.com/?q="+obj.place} target={"_blank"}>{obj.place}</a>
+
+                                    </div>
 
                                     <div>
                                         <Flex style={{  padding: '15px 0' }}>

@@ -1,9 +1,6 @@
-import React, {Component} from 'react';
-import {Icon, ImagePicker, NavBar, WingBlank,Button} from 'antd-mobile';
-import * as ROUTES from "../../../../constants/routes";
-import { withFirebase } from '../../../Firebase';
-import {updateImage} from '../../../Firebase/upload'
-import { compose } from "recompose";
+import React, { Component } from 'react';
+import { Button, Icon, ImagePicker, NavBar } from 'antd-mobile';
+import { updateImage } from '../../../Firebase/upload'
 import { withAuthentication } from "../../../Session";
 
 

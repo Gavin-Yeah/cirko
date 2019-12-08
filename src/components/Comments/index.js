@@ -1,4 +1,4 @@
-import { Button, Flex, ImagePicker, ListView, NavBar } from 'antd-mobile';
+import { Flex, ListView, NavBar } from 'antd-mobile';
 import React from "react";
 
 import add from "../icons/add.png";

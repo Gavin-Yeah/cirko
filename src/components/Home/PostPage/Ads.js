@@ -12,15 +12,15 @@ class Ads extends Component {
             this.setState({
                 ads: [{
                     key: 'AiyWuByWklrrUDlFignR',
-                    url: 'https://firebasestorage.googleapis.com/v0/b/my-project-1571785426296.appspot.com/o/images%2Fy9uUJHoPKJWXxdSBJpsHazKytPJ3_post_34_0.jpg?alt=media&token=ada06999-bcef-438c-8865-3923ef2e38c7'
+                    url: 'https://firebasestorage.googleapis.com/v0/b/my-project-1571785426296.appspot.com/o/cirko.png?alt=media&token=502ec4ab-3ecc-4d0f-94d3-1d1594715279'
                 },
                     {
                         key: 'TekJlZRVCjLFexlOCuWn',
-                        url: "https://firebasestorage.googleapis.com/v0/b/my-project-1571785426296.appspot.com/o/images%2Fy9uUJHoPKJWXxdSBJpsHazKytPJ3_post_36_0.jpg?alt=media&token=c70a463a-5cbb-4c34-a900-2b4cdcd1db1a"
+                        url: "https://firebasestorage.googleapis.com/v0/b/my-project-1571785426296.appspot.com/o/cirko2.png?alt=media&token=6648405e-50af-4c87-9fe0-51693811c368"
                     },
                     {
                         key: 'IJOtIlfsYdTyaDTRVrLI',
-                        url: 'https://firebasestorage.googleapis.com/v0/b/my-project-1571785426296.appspot.com/o/images%2Fy9uUJHoPKJWXxdSBJpsHazKytPJ3_post_35_0.jpg?alt=media&token=981f3a4c-7fbe-4055-80f0-c70728ca0674'
+                        url: 'https://firebasestorage.googleapis.com/v0/b/my-project-1571785426296.appspot.com/o/cirko-2.png?alt=media&token=0bd8ac15-964a-4ce5-926c-f69b0de9f1a1'
                     }],
 
             });
@@ -37,8 +37,8 @@ class Ads extends Component {
                 <Carousel
                     autoplay={true}
                     infinite
-                    beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                    afterChange={index => console.log('slide to', index)}
+                    // beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                    // afterChange={index => console.log('slide to', index)}
                 >
                     {this.state.ads.map(val => (
                         <a

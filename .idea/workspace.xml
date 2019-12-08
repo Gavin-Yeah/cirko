@@ -2,14 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd55fcb9-e49b-4ca8-b8c2-62db6a150df6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Home/PostPage/Ads.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/build/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/precache-manifest.b0257ecf601023f551300c7e18e5ae86.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/static/js/main.a86d53a9.chunk.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/static/js/main.a86d53a9.chunk.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Comments/AddComment/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/AddComment/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Comments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Firebase/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/upload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Comments/index2.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments/index2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreatePost/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreatePost/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Firebase/getPosts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Firebase/getPosts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/EditAvatar/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/EditAvatar/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/EditName/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/EditName/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Account/FavPosts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/FavPosts/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Account/MyPosts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/MyPosts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Account/PasswordChange/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/PasswordChange/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/Account/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Account/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/Following/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/Following/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/PostPage/Ads.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/PostPage/Ads.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Home/PostPage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/PostPage/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Home/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Home/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ImageContainer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ImageContainer/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignIn/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignIn/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SignUp/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +60,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
@@ -110,7 +129,9 @@
       <workItem from="1574301052104" duration="1266000" />
       <workItem from="1574319958049" duration="1041000" />
       <workItem from="1574363263519" duration="34119000" />
-      <workItem from="1575238940043" duration="218000" />
+      <workItem from="1575238940043" duration="1160000" />
+      <workItem from="1575408045334" duration="550000" />
+      <workItem from="1575835371454" duration="3794000" />
     </task>
     <servers />
   </component>

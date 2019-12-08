@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {NavBar, Icon, List,InputItem,Button} from "antd-mobile";
-import {updateUserName}from '../../../Firebase/upload';
+import React, { Component } from 'react';
+import { Button, Icon, InputItem, List, NavBar } from "antd-mobile";
+import { updateUserName } from '../../../Firebase/upload';
 import withAuthentication from '../../../Session/withAuthentication'
 import * as ROUTES from "../../../../constants/routes";
 
